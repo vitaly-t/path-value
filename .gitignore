@@ -1,0 +1,7 @@
+.idea/
+node_modules/
+coverage/
+package-lock.json
+dist/
+**/*.js
+**/*.d.ts

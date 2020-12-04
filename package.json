@@ -1,0 +1,52 @@
+{
+  "name": "prop-value",
+  "version": "0.0.1",
+  "description": "Property path-to-value parser.",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "build": "tsc -p src && tsc -p test",
+    "lint": "./node_modules/.bin/tslint --fix ./src/**/*.ts ./test/**/*.ts",
+    "test": "npm run lint && npm run build && nyc mocha -r ts-node/register test/**/*.spec.ts",
+    "travis": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
+  },
+  "files": [
+    "dist"
+  ],
+  "homepage": "https://github.com/vitaly-t/prop-value",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vitaly-t/prop-value.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vitaly-t/prop-value/issues",
+    "email": "vitaly.tomilov@gmail.com"
+  },
+  "keywords": [
+    "property",
+    "path",
+    "value",
+    "parser"
+  ],
+  "author": {
+    "name": "Vitaly Tomilov",
+    "email": "vitaly.tomilov@gmail.com"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=12",
+    "npm": ">=6"
+  },
+  "devDependencies": {
+    "@types/chai": "4.2.14",
+    "@types/mocha": "8.0.4",
+    "@types/node": "14.14.10",
+    "chai": "4.2.0",
+    "coveralls": "3.1.0",
+    "mocha": "8.2.1",
+    "mocha-lcov-reporter": "1.3.0",
+    "ts-node": "9.1.0",
+    "tslint": "6.1.3",
+    "typescript": "4.1.2"
+  }
+}
