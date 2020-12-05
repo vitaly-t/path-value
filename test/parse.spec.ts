@@ -1,14 +1,9 @@
 import {expect} from './header';
-import {parseProp as parse} from '../src';
-
-const errors = {
-    name: `Empty name not allowed`,
-    context: `Keyword 'this' can only be at the start`
-};
+import {parseProp as parse, ParseError} from '../src';
 
 describe('for empty string', () => {
     it('must fail correctly', () => {
-        expect(parse({}, '')).to.eql({chain: [''], idx: -1, syntaxErr: errors.name});
+        expect(parse({}, '')).to.eql({chain: [''], idx: -1, error: ParseError.emptyName});
     });
 });
 
@@ -101,7 +96,7 @@ describe('multiple properties', () => {
             expect(parse(obj, 'one.this')).to.eql({
                 chain: ['one', 'this'],
                 idx: 0,
-                syntaxErr: errors.context
+                error: ParseError.invalidThis
             });
         });
     });

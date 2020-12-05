@@ -1,4 +1,4 @@
-import {IPropResolution} from './types';
+import {IPropResolution, ParseError} from './types';
 
 /**
  *
@@ -16,10 +16,10 @@ export function parseProp(this: any, obj: any, props: string): IPropResolution {
         const name = chain[i];
         switch (name) {
             case '':
-                return {chain, idx: i - 1, syntaxErr: `Empty name not allowed`};
+                return {chain, idx: i - 1, error: ParseError.emptyName};
             case 'this':
                 if (i) {
-                    return {chain, idx: i - 1, syntaxErr: `Keyword 'this' can only be at the start`};
+                    return {chain, idx: i - 1, error: ParseError.invalidThis};
                 }
                 target = this;
                 value = this;
@@ -29,7 +29,7 @@ export function parseProp(this: any, obj: any, props: string): IPropResolution {
         }
         const v = target[name];
         value = typeof v === 'function' ? v.call(target) : v;
-        if (value === undefined) {
+        if (value === undefined || value === null) {
             continue;
         }
         if (i < len - 1) {
@@ -46,6 +46,7 @@ export function parseProp(this: any, obj: any, props: string): IPropResolution {
     }
     return {
         chain,
-        idx: i - 1
+        idx: i - 1,
+        error: ParseError.stopped
     };
 }

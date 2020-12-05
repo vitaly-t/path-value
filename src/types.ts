@@ -1,3 +1,28 @@
+/*
+*                 return {chain, idx: i - 1, syntaxErr: `Empty name not allowed`};
+            case 'this':
+                if (i) {
+                    return {chain, idx: i - 1, syntaxErr: `Keyword 'this' can only be at the start`};
+
+* */
+
+export enum ParseError {
+    /**
+     * Empty name encountered.
+     */
+    emptyName = 1,
+
+    /**
+     * Keyword 'this' encountered after the start.
+     */
+    invalidThis = 2,
+
+    /**
+     * Parsing stopped, after encountering undefined or null value.
+     */
+    stopped = 3
+}
+
 export interface IPropResolution {
     /**
      * Parsed names of all properties/functions in the chain.
@@ -16,9 +41,9 @@ export interface IPropResolution {
     idx: number;
 
     /**
-     * When there is a syntax-related error, it is set to the error message.
+     * When failed to resolve, it is set to the error code.
      */
-    syntaxErr?: string;
+    error?: ParseError;
 
     /**
      * Final resolved value, if successful, or else the property is not set.
