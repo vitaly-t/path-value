@@ -4,7 +4,7 @@ export interface IPropResolution {
      *
      * When resolving against an alternative scope, the first element is 'this'.
      */
-    chain: string[],
+    chain: string[];
 
     /**
      * Index of the last property/function in the chain that was successfully resolved.
@@ -36,7 +36,7 @@ export interface IPropResolution {
  *
  * @param props
  */
-export function resolveProp(this: any, obj: { [name: string]: any }, props: string): IPropResolution {
+export function resolveProp(this: any, obj: any, props: string): IPropResolution {
     if (props.indexOf(`.`) === -1) {
         if (props === 'this') {
             return {
@@ -59,56 +59,41 @@ export function resolveProp(this: any, obj: { [name: string]: any }, props: stri
             target: obj,
             value
         };
-    } else {
-        const chain = props.split(`.`);
-        let value = obj, target, i;
-        for (i = 0; i < chain.length; i++) {
-            const name = chain[i];
-            if (!name) {
-                return {
-                    chain,
-                    idx: i
-                };
-            }
-            if (!i && name === 'this') {
-                target = this;
-                value = this;
-                continue;
-            }
-            if (i < chain.length - 1) {
-                target = value;
-            }
-            const v = target[name];
-            value = typeof v === 'function' ? v.call(obj) : v;
-            if (value === undefined) {
-                break;
-            }
-        }
-        if (i === chain.length) {
+    }
+    const chain = props.split(`.`);
+    let value = obj, target, i;
+    for (i = 0; i < chain.length; i++) {
+        const name = chain[i];
+        if (!name) {
             return {
                 chain,
-                idx: i - 1,
-                target,
-                value
+                idx: i
             };
         }
+        if (!i && name === 'this') {
+            target = this;
+            value = this;
+            continue;
+        }
+        if (i < chain.length - 1) {
+            target = value;
+        }
+        const v = target[name];
+        value = typeof v === 'function' ? v.call(obj) : v;
+        if (value === undefined) {
+            break;
+        }
+    }
+    if (i === chain.length) {
         return {
             chain,
-            idx: i
+            idx: i - 1,
+            target,
+            value
         };
     }
+    return {
+        chain,
+        idx: i
+    };
 }
-
-const obj = {
-    inner: {
-        msg: 123
-    },
-    getValue() {
-        return this.inner;
-    }
-};
-
-const res = resolveProp.call(obj, obj, 'getValue.msg');
-
-console.log(res);
-
