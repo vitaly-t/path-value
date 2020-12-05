@@ -3,4 +3,4 @@ import {describe} from 'mocha';
 
 const expect = chai.expect;
 
-export {describe, expect, chai};
+export {chai, describe, expect};
