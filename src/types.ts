@@ -1,12 +1,4 @@
-/*
-*                 return {chain, idx: i - 1, syntaxErr: `Empty name not allowed`};
-            case 'this':
-                if (i) {
-                    return {chain, idx: i - 1, syntaxErr: `Keyword 'this' can only be at the start`};
-
-* */
-
-export enum ParseError {
+export enum ParseErrorCode {
     /**
      * Empty name encountered.
      */
@@ -43,7 +35,7 @@ export interface IPropResolution {
     /**
      * When failed to resolve, it is set to the error code.
      */
-    error?: ParseError;
+    errorCode?: ParseErrorCode;
 
     /**
      * Final resolved value, if successful, or else the property is not set.

@@ -1,4 +1,4 @@
-import {IPropResolution, ParseError} from './types';
+import {IPropResolution, ParseErrorCode} from './types';
 
 /**
  *
@@ -16,10 +16,10 @@ export function parseProp(this: any, obj: any, props: string): IPropResolution {
         const name = chain[i];
         switch (name) {
             case '':
-                return {chain, idx: i - 1, error: ParseError.emptyName};
+                return {chain, idx: i - 1, errorCode: ParseErrorCode.emptyName};
             case 'this':
                 if (i) {
-                    return {chain, idx: i - 1, error: ParseError.invalidThis};
+                    return {chain, idx: i - 1, errorCode: ParseErrorCode.invalidThis};
                 }
                 target = this;
                 value = this;
@@ -47,6 +47,6 @@ export function parseProp(this: any, obj: any, props: string): IPropResolution {
     return {
         chain,
         idx: i - 1,
-        error: ParseError.stopped
+        errorCode: ParseErrorCode.stopped
     };
 }

@@ -1,9 +1,9 @@
 import {expect} from './header';
-import {parseProp as parse, ParseError} from '../src';
+import {parseProp as parse, ParseErrorCode} from '../src';
 
 describe('for empty string', () => {
     it('must fail correctly', () => {
-        expect(parse({}, '')).to.eql({chain: [''], idx: -1, error: ParseError.emptyName});
+        expect(parse({}, '')).to.eql({chain: [''], idx: -1, errorCode: ParseErrorCode.emptyName});
     });
 });
 
@@ -96,7 +96,7 @@ describe('multiple properties', () => {
             expect(parse(obj, 'one.this')).to.eql({
                 chain: ['one', 'this'],
                 idx: 0,
-                error: ParseError.invalidThis
+                errorCode: ParseErrorCode.invalidThis
             });
         });
     });
