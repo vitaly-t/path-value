@@ -19,11 +19,11 @@ export function resolveValue(this: any, target: any, path: string): any {
         case ParseErrorCode.invalidThis:
             throw new ParsePropError(`Keyword 'this' can only be at the start.`, res);
         case ParseErrorCode.asyncValue:
-            throw new ParsePropError(`Cannot resolve '${res.chain[res.lastIdx + 1]}': async functions and values are not supported.`, res);
+            throw new ParsePropError(`Cannot resolve '${res.chain[res.idx + 1]}': async functions and values are not supported.`, res);
         case ParseErrorCode.genValue:
-            throw new ParsePropError(`Cannot resolve '${res.chain[res.lastIdx + 1]}': iterators and generators are not supported.`, res);
+            throw new ParsePropError(`Cannot resolve '${res.chain[res.idx + 1]}': iterators and generators are not supported.`, res);
         case ParseErrorCode.stopped:
-            throw new ParsePropError(`Cannot resolve '${res.chain[res.lastIdx + 1]}' from null/undefined.`, res);
+            throw new ParsePropError(`Cannot resolve '${res.chain[res.idx + 1]}' from null/undefined.`, res);
         default:
             return res.value;
     }
