@@ -45,7 +45,7 @@ export function validateResult(res: IParseResult): any {
  * Extends validation for missing last property, to throw an error.
  *
  * This is primarily an example of how you can implement your own validation,
- * and not part of the official API, i.e. can be refactored out in the future.
+ * and not part of the official API.
  *
  * @param target
  * Default scope to resolve against.
