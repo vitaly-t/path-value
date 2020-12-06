@@ -12,8 +12,7 @@ import {IParseResult, ParseErrorCode} from './types';
 export function resolvePath(this: any, target: any, path: string): IParseResult {
     const chain = path.split(`.`);
     const len = chain.length;
-    // TODO: Add support for 'exists'
-    let value, /*exists = false,*/ i = 0;
+    let value, i = 0;
     for (i; i < len; i++) {
         const name = chain[i];
         switch (name) {
@@ -44,7 +43,7 @@ export function resolvePath(this: any, target: any, path: string): IParseResult 
         target = value;
     }
     if (i === len) {
-        return {chain, idx: i - 1, value/*, exists*/};
+        return {chain, idx: i - 1, value};
     }
     return {chain, idx: i - 1, errorCode: ParseErrorCode.stopped};
 }
