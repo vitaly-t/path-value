@@ -22,18 +22,20 @@ export function resolveValue(this: any, target: any, path: string): any {
  * Result to validate.
  */
 export function validateResult(res: IParseResult): any {
-    const failedName = JSON.stringify(res.chain[res.idx + 1]);
     switch (res.errorCode) {
         case ParseErrorCode.emptyName:
             throw new ParsePropError('Empty names are not allowed.', res);
         case ParseErrorCode.invalidThis:
             throw new ParsePropError(`Keyword 'this' can only be at the start.`, res);
         case ParseErrorCode.asyncValue:
-            throw new ParsePropError(`Cannot resolve ${failedName}: async functions and values are not supported.`, res);
+            const asyncName = JSON.stringify(res.chain[res.idx + 1]);
+            throw new ParsePropError(`Cannot resolve ${asyncName}: async functions and values are not supported.`, res);
         case ParseErrorCode.genValue:
-            throw new ParsePropError(`Cannot resolve ${failedName}: iterators and generators are not supported.`, res);
+            const genName = JSON.stringify(res.chain[res.idx + 1]);
+            throw new ParsePropError(`Cannot resolve ${genName}: iterators and generators are not supported.`, res);
         case ParseErrorCode.stopped:
-            throw new ParsePropError(`Cannot resolve ${failedName} from null/undefined.`, res);
+            const stoppedName = JSON.stringify(res.chain[res.idx + 1]);
+            throw new ParsePropError(`Cannot resolve ${stoppedName} from null/undefined.`, res);
         default:
             return res.value;
     }
