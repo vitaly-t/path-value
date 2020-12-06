@@ -46,5 +46,7 @@ export function resolvePath(this: any, target: any, path: string): IParseResult 
     if (i === len) {
         return {chain, lastIdx: i - 1, missingIdx, value};
     }
+    // TODO: Consider instead missing: {ownIdx, prototypeIdx},
+    //  to tell when first missing own property or prototype as well.
     return {chain, lastIdx: i - 1, errorCode: ParseErrorCode.stopped};
 }
