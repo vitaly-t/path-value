@@ -21,7 +21,7 @@ const value = resolveValue(obj, 'first.second.value');
 ## Installing
 
 ```
-$ npm i prop-value
+$ npm i path-value
 ```
 
 ## Features
