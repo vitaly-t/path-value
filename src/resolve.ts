@@ -2,8 +2,8 @@ import {parseProp} from './parse';
 import {ParsePropError} from './error';
 import {ParseErrorCode} from './types';
 
-export function resolveProp(this: any, target: any, props: string): any {
-    const res = parseProp.call(this, target, props);
+export function resolveProp(this: any, target: any, path: string): any {
+    const res = parseProp.call(this, target, path);
     switch (res.errorCode) {
         case ParseErrorCode.emptyName:
             throw new ParsePropError('Empty names are not allowed.', res);

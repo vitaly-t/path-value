@@ -1,7 +1,7 @@
 prop-value
 ----------
 
-Simple path-to-value resolver:
+Simple path-to-value resolver.
 
 ```ts
 import {resolveProp} from 'prop-value';
@@ -31,7 +31,7 @@ $ npm i prop-value
 ```ts
 const obj = {value: 1};
 
-const scope = {value: 2}; // custom/aletrnative 'this' scope
+const scope = {value: 2}; // custom/alternative 'this' scope
 
 const value1 = resolveProp.call(scope, obj, 'value');
 //=> 1 (default scope is used)
