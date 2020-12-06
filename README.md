@@ -1,10 +1,10 @@
-prop-value
+path-value
 ----------
 
 Simple path-to-value resolver.
 
 ```ts
-import {resolveValue} from 'prop-value';
+import {resolveValue} from 'path-value';
 
 const obj = {
     first: {
@@ -46,7 +46,7 @@ const value3 = resolveValue.call(obj, obj, 'this.value');
 * Lower-level `resolvePath` returns a parsing descriptor:
 
 ```ts
-import {resolvePath, IParseResult} from 'prop-value';
+import {resolvePath, IParseResult} from 'path-value';
 
 const obj = {first: {value: 123}};
 

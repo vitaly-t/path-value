@@ -1,7 +1,7 @@
 {
-  "name": "prop-value",
+  "name": "path-value",
   "version": "0.0.3",
-  "description": "Property path-to-value parser.",
+  "description": "Path-to-value resolver.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -13,20 +13,19 @@
   "files": [
     "dist"
   ],
-  "homepage": "https://github.com/vitaly-t/prop-value",
+  "homepage": "https://github.com/vitaly-t/path-value",
   "repository": {
     "type": "git",
-    "url": "https://github.com/vitaly-t/prop-value.git"
+    "url": "https://github.com/vitaly-t/path-value.git"
   },
   "bugs": {
-    "url": "https://github.com/vitaly-t/prop-value/issues",
+    "url": "https://github.com/vitaly-t/path-value/issues",
     "email": "vitaly.tomilov@gmail.com"
   },
   "keywords": [
-    "property",
     "path",
     "value",
-    "parser"
+    "resolver"
   ],
   "author": {
     "name": "Vitaly Tomilov",
