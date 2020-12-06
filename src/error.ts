@@ -1,24 +1,17 @@
-import {IPropResolution} from './types';
+import {IParseResult, ParseErrorCode} from './types';
 
 export class ParsePropError extends Error {
+    readonly code: number;
+    readonly codeName: string;
+    readonly chain: string[];
+    readonly idx: number;
 
-    private res: IPropResolution;
-
-    constructor(msg: string, res: IPropResolution) {
+    constructor(msg: string, res: IParseResult) {
         super(msg);
-        this.res = res;
+        this.code = <ParseErrorCode>res.errorCode;
+        this.codeName = `ParseErrorCode.${ParseErrorCode[this.code]}`;
+        this.chain = res.chain;
+        this.idx = res.idx;
         Object.setPrototypeOf(this, ParsePropError.prototype);
-    }
-
-    get chain() {
-        return this.res.chain;
-    }
-
-    get idx() {
-        return this.res.idx;
-    }
-
-    get code() {
-        return this.res.errorCode;
     }
 }

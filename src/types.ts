@@ -10,12 +10,22 @@ export enum ParseErrorCode {
     invalidThis = 2,
 
     /**
+     * Encountered an asynchronous value or function.
+     */
+    asyncValue = 3,
+
+    /**
+     * Encountered a generator function or iterator.
+     */
+    genValue = 4,
+
+    /**
      * Parsing stopped, after encountering undefined or null value.
      */
-    stopped = 3
+    stopped = 5
 }
 
-export interface IPropResolution {
+export interface IParseResult {
     /**
      * Parsed names of all properties/functions in the chain.
      *
