@@ -2,16 +2,16 @@ import {IPropResolution, ParseErrorCode} from './types';
 
 /**
  *
- * @param obj
+ * @param target
  * Default resolution scope. When the chain starts with 'this', the current call context
  * is used instead as the alternative resolution scope.
  *
  * @param props
  */
-export function parseProp(this: any, obj: any, props: string): IPropResolution {
+export function parseProp(this: any, target: any, props: string): IPropResolution {
     const chain = props.split(`.`);
     const len = chain.length;
-    let target = obj, value, i;
+    let value, i;
     for (i = 0; i < len; i++) {
         const name = chain[i];
         switch (name) {
@@ -30,23 +30,13 @@ export function parseProp(this: any, obj: any, props: string): IPropResolution {
         const v = target[name];
         value = typeof v === 'function' ? v.call(target) : v;
         if (value === undefined || value === null) {
-            continue;
+            i++;
+            break;
         }
-        if (i < len - 1) {
-            target = value;
-        }
+        target = value;
     }
     if (i === len) {
-        return {
-            chain,
-            idx: i - 1,
-            target,
-            value
-        };
+        return {chain, idx: i - 1, value};
     }
-    return {
-        chain,
-        idx: i - 1,
-        errorCode: ParseErrorCode.stopped
-    };
+    return {chain, idx: i - 1, errorCode: ParseErrorCode.stopped};
 }

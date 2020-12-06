@@ -41,11 +41,4 @@ export interface IPropResolution {
      * Final resolved value, if successful, or else the property is not set.
      */
     value?: any;
-
-    /**
-     * Last but one object in the chain, which is the target context for the final property's resolution.
-     *
-     * It is not set when even the first target is unknown.
-     */
-    target?: any;
 }

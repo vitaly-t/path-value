@@ -13,11 +13,10 @@ describe('one property', () => {
             expect(parse.call(undefined, null, 'this')).to.eql({
                 chain: ['this'],
                 idx: 0,
-                target: undefined,
                 value: undefined
             });
-            expect(parse.call(null, null, 'this')).to.eql({chain: ['this'], idx: 0, target: null, value: null});
-            expect(parse.call(123, null, 'this')).to.eql({chain: ['this'], idx: 0, target: 123, value: 123});
+            expect(parse.call(null, null, 'this')).to.eql({chain: ['this'], idx: 0, value: null});
+            expect(parse.call(123, null, 'this')).to.eql({chain: ['this'], idx: 0, value: 123});
         });
     });
     describe('for primitive types', () => {
@@ -25,42 +24,52 @@ describe('one property', () => {
             expect(parse(123, 'toExponential')).to.eql({
                 chain: ['toExponential'],
                 idx: 0,
-                target: 123,
                 value: '1.23e+2'
             });
-            expect(parse('test', 'length')).to.eql({chain: ['length'], idx: 0, target: 'test', value: 4});
+            expect(parse('test', 'length')).to.eql({chain: ['length'], idx: 0, value: 4});
         });
     });
     describe('for missing properties', () => {
         it('must resolve with undefined', () => {
-            expect(parse({}, 'one')).to.eql({chain: ['one'], idx: 0, target: {}, value: undefined});
+            expect(parse({}, 'one')).to.eql({chain: ['one'], idx: 0, value: undefined});
         });
     });
     describe('for functions', () => {
         it('must invoke correctly', () => {
             const obj1 = {one: () => 123};
-            expect(parse(obj1, 'one')).to.eql({chain: ['one'], idx: 0, target: obj1, value: 123});
+            expect(parse(obj1, 'one')).to.eql({chain: ['one'], idx: 0, value: 123});
             const obj2 = {
                 one: 123, getValue() {
                     return this.one;
                 }
             };
-            expect(parse(obj2, 'getValue')).to.eql({chain: ['getValue'], idx: 0, target: obj2, value: 123});
+            expect(parse(obj2, 'getValue')).to.eql({chain: ['getValue'], idx: 0, value: 123});
         });
     });
 });
 
 describe('multiple properties', () => {
-    describe('for simple names', () => {
+    describe('for valid simple names', () => {
         it('must resolve', () => {
             const obj1 = {one: {two: 12}};
-            expect(parse(obj1, 'one.two')).to.eql({chain: ['one', 'two'], idx: 1, target: obj1.one, value: 12});
+            expect(parse(obj1, 'one.two')).to.eql({chain: ['one', 'two'], idx: 1, value: 12});
             const obj2 = {one: {two: {three: 123}}};
             expect(parse(obj2, 'one.two.three')).to.eql({
                 chain: ['one', 'two', 'three'],
                 idx: 2,
-                target: obj2.one.two,
                 value: 123
+            });
+        });
+    });
+    describe('for invalid simple names', () => {
+        it('must resolve', () => {
+            const obj1 = {};
+            expect(parse(obj1, 'one.two')).to.eql({chain: ['one', 'two'], idx: 0, errorCode: ParseErrorCode.stopped});
+            const obj2 = {one: {}};
+            expect(parse(obj2, 'one.two.three.four')).to.eql({
+                chain: ['one', 'two', 'three', 'four'],
+                idx: 1,
+                errorCode: ParseErrorCode.stopped
             });
         });
     });
@@ -70,13 +79,11 @@ describe('multiple properties', () => {
             expect(parse.call(obj1, obj1, 'this.one')).to.eql({
                 chain: ['this', 'one'],
                 idx: 1,
-                target: obj1,
                 value: 1
             });
             expect(parse.call(obj1, null, 'this.one')).to.eql({
                 chain: ['this', 'one'],
                 idx: 1,
-                target: obj1,
                 value: 1
             });
         });
@@ -85,7 +92,6 @@ describe('multiple properties', () => {
             expect(parse.call(obj1, obj1, 'this.one.two')).to.eql({
                 chain: ['this', 'one', 'two'],
                 idx: 2,
-                target: obj1.one,
                 value: 12
             });
         });
@@ -117,7 +123,6 @@ describe('complex', () => {
         expect(parse.call(obj, null, 'this.getThis.getValue')).to.eql({
             chain: ['this', 'getThis', 'getValue'],
             idx: 2,
-            target: obj,
             value: 123
         });
     });
