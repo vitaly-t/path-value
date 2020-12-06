@@ -40,7 +40,16 @@ export interface IParseResult {
      *
      * It is -1, when even the first name failed to resolve.
      */
-    idx: number;
+    lastIdx: number;
+
+    /**
+     * Index of the first property in the chain that doesn't exist in its container.
+     *
+     * It is only set after successful resolution.
+     *
+     * It is -1 when all properties in the chain exist.
+     */
+    missingIdx?: number;
 
     /**
      * When failed to resolve, it is set to the error code.

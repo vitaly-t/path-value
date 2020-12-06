@@ -12,15 +12,15 @@ import {IParseResult, ParseErrorCode} from './types';
 export function resolvePath(this: any, target: any, path: string): IParseResult {
     const chain = path.split(`.`);
     const len = chain.length;
-    let value, i = 0;
+    let value, i = 0, missingIdx = -1;
     for (i; i < len; i++) {
         const name = chain[i];
         switch (name) {
             case '':
-                return {chain, idx: i - 1, errorCode: ParseErrorCode.emptyName};
+                return {chain, lastIdx: i - 1, errorCode: ParseErrorCode.emptyName};
             case 'this':
                 if (i) {
-                    return {chain, idx: i - 1, errorCode: ParseErrorCode.invalidThis};
+                    return {chain, lastIdx: i - 1, errorCode: ParseErrorCode.invalidThis};
                 }
                 target = this;
                 value = this;
@@ -35,15 +35,16 @@ export function resolvePath(this: any, target: any, path: string): IParseResult 
             break;
         }
         if (typeof value.then === 'function') {
-            return {chain, idx: i - 1, errorCode: ParseErrorCode.asyncValue};
+            return {chain, lastIdx: i - 1, errorCode: ParseErrorCode.asyncValue};
         }
         if (typeof value.next === 'function') {
-            return {chain, idx: i - 1, errorCode: ParseErrorCode.genValue};
+            return {chain, lastIdx: i - 1, errorCode: ParseErrorCode.genValue};
         }
+        missingIdx = (missingIdx < 0 && !(typeof target === 'object' && name in target)) ? i : missingIdx;
         target = value;
     }
     if (i === len) {
-        return {chain, idx: i - 1, value};
+        return {chain, lastIdx: i - 1, missingIdx, value};
     }
-    return {chain, idx: i - 1, errorCode: ParseErrorCode.stopped};
+    return {chain, lastIdx: i - 1, errorCode: ParseErrorCode.stopped};
 }
