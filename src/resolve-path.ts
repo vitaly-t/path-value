@@ -7,10 +7,11 @@ import {IParseResult, ParseErrorCode} from './types';
  * Default scope to resolve against.
  *
  * @param path
- * Resolution path. If the path starts with `this`, resolution is against the call context.
+ * Resolution path, either as an array of names, or a dot-separated string.
+ * If the path starts with `this`, resolution is against the call context.
  */
-export function resolvePath(this: any, target: any, path: string): IParseResult {
-    const chain = path.split(`.`);
+export function resolvePath(this: any, target: any, path: string | string[]): IParseResult {
+    const chain = Array.isArray(path) ? path : path.split(`.`);
     const len = chain.length;
     let value, i = 0, missing = false;
     for (i; i < len; i++) {
