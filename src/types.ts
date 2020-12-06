@@ -5,7 +5,7 @@ export enum ParseErrorCode {
     emptyName = 1,
 
     /**
-     * Keyword 'this' encountered after the start.
+     * Keyword `this` encountered after the start.
      */
     invalidThis = 2,
 
@@ -20,7 +20,7 @@ export enum ParseErrorCode {
     genValue = 4,
 
     /**
-     * Parsing stopped, after encountering undefined or null value.
+     * Parsing stopped, after encountering `undefined` or `null` value.
      */
     stopped = 5
 }
@@ -29,7 +29,7 @@ export interface IParseResult {
     /**
      * Parsed names of all properties/functions in the chain.
      *
-     * When resolving against an alternative scope, the first element is 'this'.
+     * When resolving against an alternative scope, the first element is `this`.
      */
     chain: string[];
 

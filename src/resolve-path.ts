@@ -1,14 +1,15 @@
 import {IParseResult, ParseErrorCode} from './types';
 
 /**
+ * Low-level path-to-descriptor resolution function.
  *
  * @param target
- * Default resolution scope. When the chain starts with 'this', the current call context
- * is used instead as the alternative resolution scope.
+ * Default scope to resolve against.
  *
  * @param path
+ * Resolution path. If the path starts with `this`, resolution is against the call context.
  */
-export function parseProp(this: any, target: any, path: string): IParseResult {
+export function resolvePath(this: any, target: any, path: string): IParseResult {
     const chain = path.split(`.`);
     const len = chain.length;
     let value, i = 0;

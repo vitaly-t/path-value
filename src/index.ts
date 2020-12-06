@@ -1,4 +1,4 @@
 export {IParseResult, ParseErrorCode} from './types';
 export {ParsePropError} from './error';
-export {parseProp} from './parse';
-export {resolveProp} from './resolve';
+export {resolvePath} from './resolve-path';
+export {resolveValue} from './resolve-value';

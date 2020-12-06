@@ -1,9 +1,18 @@
-import {parseProp} from './parse';
+import {resolvePath} from './resolve-path';
 import {ParsePropError} from './error';
 import {ParseErrorCode} from './types';
 
-export function resolveProp(this: any, target: any, path: string): any {
-    const res = parseProp.call(this, target, path);
+/**
+ * High-level path-to-value resolution function, to either return the resolved value or throw a detailed error.
+ *
+ * @param target
+ * Default scope to resolve against.
+ *
+ * @param path
+ * Resolution path. If the path starts with `this`, resolution is against the call context.
+ */
+export function resolveValue(this: any, target: any, path: string): any {
+    const res = resolvePath.call(this, target, path);
     switch (res.errorCode) {
         case ParseErrorCode.emptyName:
             throw new ParsePropError('Empty names are not allowed.', res);

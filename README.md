@@ -4,7 +4,7 @@ prop-value
 Simple path-to-value resolver.
 
 ```ts
-import {resolveProp} from 'prop-value';
+import {resolveValue} from 'prop-value';
 
 const obj = {
     first: {
@@ -14,7 +14,7 @@ const obj = {
     }
 };
 
-const value = resolveProp(obj, 'first.second.value');
+const value = resolveValue(obj, 'first.second.value');
 //=> 123
 ```
 
@@ -33,28 +33,28 @@ const obj = {value: 1};
 
 const scope = {value: 2}; // custom/alternative 'this' scope
 
-const value1 = resolveProp.call(scope, obj, 'value');
+const value1 = resolveValue.call(scope, obj, 'value');
 //=> 1 (default scope is used)
 
-const value2 = resolveProp.call(scope, obj, 'this.value');
+const value2 = resolveValue.call(scope, obj, 'this.value');
 //=> 2 (custom 'this' scope is used)
 
-const value3 = resolveProp.call(obj, obj, 'this.value');
+const value3 = resolveValue.call(obj, obj, 'this.value');
 //=> 1 (custom scope = default scope)
 ```
 
-* Lower-level `parseProp` returns a parsing descriptor:
+* Lower-level `resolvePath` returns a parsing descriptor:
 
 ```ts
-import {parseProp, IParseResult} from 'prop-value';
+import {resolvePath, IParseResult} from 'prop-value';
 
 const obj = {first: {value: 123}};
 
-const res: IParseResult = parseProp(obj, 'first.value');
+const res: IParseResult = resolvePath(obj, 'first.value');
 //=> {chain: ['first', 'second'], idx: 1, value: 123}
 ```
 
-Function `parseProp` supports custom `this` scope the same as `resolveProp` does.
+Function `resolvePath` supports custom `this` scope the same as `resolveValue` does.
 It will only throw an error if property getter/function throws an error.
 
 * It supports functions-methods within resolution chain:
@@ -70,6 +70,6 @@ const obj = {
     }
 };
 
-const value = resolveProp(obj, 'first.second');
+const value = resolveValue(obj, 'first.second');
 //=> 123
 ```
