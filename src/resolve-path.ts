@@ -29,6 +29,9 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
             default:
                 break;
         }
+        if (target === null || target === undefined) {
+            break;
+        }
         const v = target[name];
         value = typeof v === 'function' ? v.call(target) : v;
         if (value === undefined || value === null) {
