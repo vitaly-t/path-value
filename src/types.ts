@@ -25,6 +25,20 @@ export enum ParseErrorCode {
     stopped = 5
 }
 
+/**
+ * Result of parsing a property path (name chain, separated by dots).
+ *
+ * When successful:
+ *  - `idx` = chain.length - 1
+ *  - `missing` is set to true/false
+ *  - `value` is set to the final property value
+ *
+ *  When unsuccessful:
+ *  - `idx` = index of the last resolved property within chain,
+ *    which also can be -1 when even none were resolved;
+ *  - `errorCode` is set
+ *
+ */
 export interface IParseResult {
     /**
      * Parsed names of all properties/functions in the chain.

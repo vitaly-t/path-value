@@ -32,8 +32,9 @@ export function resolvePath(this: any, target: any, path: string): IParseResult 
         value = typeof v === 'function' ? v.call(target) : v;
         if (value === undefined || value === null) {
             i++;
-            if (i === len) {
-                missing = !(name in (typeof target === 'object' ? target : target.constructor.prototype));
+            if (value === undefined && i === len) {
+                const obj = typeof target === 'object' ? target : target.constructor.prototype;
+                missing = !(name in obj);
             }
             break;
         }
