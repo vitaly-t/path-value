@@ -51,4 +51,9 @@ export interface IParseResult {
      * Final resolved value, if successful, or else the property is not set.
      */
     value?: any;
+
+    /**
+     * Indicates existence of property for the last resulting value.
+     */
+    exists?: boolean;
 }
