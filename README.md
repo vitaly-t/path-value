@@ -76,4 +76,4 @@ const value = resolveValue(obj, 'first.second');
 //=> 123
 ```
 
-See also: [Examples](./wiki/Examples)
+See also: [Examples](http://github.com/vitaly-t/path-value/wiki/Examples)
