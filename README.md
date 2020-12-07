@@ -75,3 +75,5 @@ const obj = {
 const value = resolveValue(obj, 'first.second');
 //=> 123
 ```
+
+See also: [Examples](./wiki/Examples)
