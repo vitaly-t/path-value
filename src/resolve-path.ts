@@ -1,4 +1,4 @@
-import {IPathResult, ParseErrorCode} from './types';
+import {IPathResult, PathErrorCode} from './types';
 
 /**
  * Low-level path-to-descriptor resolution function.
@@ -18,10 +18,10 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
         const name = chain[i];
         switch (name) {
             case '':
-                return {chain, idx: i - 1, errorCode: ParseErrorCode.emptyName};
+                return {chain, idx: i - 1, errorCode: PathErrorCode.emptyName};
             case 'this':
                 if (i) {
-                    return {chain, idx: i - 1, errorCode: ParseErrorCode.invalidThis};
+                    return {chain, idx: i - 1, errorCode: PathErrorCode.invalidThis};
                 }
                 target = this;
                 value = this;
@@ -43,15 +43,15 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
             break;
         }
         if (typeof value.then === 'function') {
-            return {chain, idx: i - 1, errorCode: ParseErrorCode.asyncValue};
+            return {chain, idx: i - 1, errorCode: PathErrorCode.asyncValue};
         }
         if (typeof value.next === 'function') {
-            return {chain, idx: i - 1, errorCode: ParseErrorCode.genValue};
+            return {chain, idx: i - 1, errorCode: PathErrorCode.genValue};
         }
         target = value;
     }
     if (i === len) {
         return {chain, idx: i - 1, exists, value};
     }
-    return {chain, idx: i - 1, errorCode: ParseErrorCode.stopped};
+    return {chain, idx: i - 1, errorCode: PathErrorCode.stopped};
 }

@@ -1,4 +1,4 @@
-export enum ParseErrorCode {
+export enum PathErrorCode {
     /**
      * Empty name encountered.
      */
@@ -59,7 +59,7 @@ export interface IPathResult {
     /**
      * When failed to resolve, it is set to the error code.
      */
-    errorCode?: ParseErrorCode;
+    errorCode?: PathErrorCode;
 
     /**
      * It is set only after a successful resolution, to indicate whether the

@@ -1,9 +1,9 @@
 import {expect} from './header';
-import {resolvePath as resolve, ParseErrorCode} from '../src';
+import {resolvePath as resolve, PathErrorCode} from '../src';
 
 describe('for empty string', () => {
     it('must fail correctly', () => {
-        expect(resolve({}, '')).to.eql({chain: [''], idx: -1, errorCode: ParseErrorCode.emptyName});
+        expect(resolve({}, '')).to.eql({chain: [''], idx: -1, errorCode: PathErrorCode.emptyName});
     });
 });
 
@@ -70,13 +70,13 @@ describe('multiple properties', () => {
             expect(resolve(obj1, 'one.two')).to.eql({
                 chain: ['one', 'two'],
                 idx: 0,
-                errorCode: ParseErrorCode.stopped
+                errorCode: PathErrorCode.stopped
             });
             const obj2 = {one: {}};
             expect(resolve(obj2, 'one.two.three.four')).to.eql({
                 chain: ['one', 'two', 'three', 'four'],
                 idx: 1,
-                errorCode: ParseErrorCode.stopped
+                errorCode: PathErrorCode.stopped
             });
         });
     });
@@ -112,7 +112,7 @@ describe('multiple properties', () => {
             expect(resolve(obj, 'one.this')).to.eql({
                 chain: ['one', 'this'],
                 idx: 0,
-                errorCode: ParseErrorCode.invalidThis
+                errorCode: PathErrorCode.invalidThis
             });
         });
     });
