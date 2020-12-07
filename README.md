@@ -48,11 +48,11 @@ const value3 = resolveValue.call(obj, obj, 'this.value');
 * Lower-level `resolvePath` returns a parsing descriptor:
 
 ```ts
-import {resolvePath, IParseResult} from 'path-value';
+import {resolvePath, IPathResult} from 'path-value';
 
 const obj = {first: {value: 123}};
 
-const res: IParseResult = resolvePath(obj, 'first.value');
+const res: IPathResult = resolvePath(obj, 'first.value');
 //=> {chain: ['first', 'second'], idx: 1, exists: true, value: 123}
 ```
 
