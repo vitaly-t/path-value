@@ -1,15 +1,15 @@
 import {expect} from './header';
-import {resolveValue} from '../src';
+import {resolveValue as resolve} from '../src';
 
 describe('negative', () => {
     describe('target = null/undefined', () => {
         it('must throw standard error', () => {
             const err = 'Cannot resolve "first" from null/undefined.';
             expect(() => {
-                resolveValue(null, 'first');
+                resolve(null, 'first');
             }).to.throw(err);
             expect(() => {
-                resolveValue(undefined, 'first');
+                resolve(undefined, 'first');
             }).to.throw(err);
         });
     });
@@ -17,10 +17,10 @@ describe('negative', () => {
         it('must throw standard error', () => {
             const err = 'Cannot resolve "first" from null/undefined.';
             expect(() => {
-                resolveValue.call(null, null, 'this.first');
+                resolve.call(null, null, 'this.first');
             }).to.throw(err);
             expect(() => {
-                resolveValue.call(undefined, null, 'this.first');
+                resolve.call(undefined, null, 'this.first');
             }).to.throw(err);
         });
     });
