@@ -60,7 +60,7 @@ export function validateResult(res: IParseResult): void {
 export function resolveIfExists(this: any, target: any, path: string | string[]): any {
     const res = resolvePath.call(this, target, path);
     validateResult(res);
-    if (res.missing) {
+    if (!res.exists) {
         const lastName = JSON.stringify(res.chain[res.chain.length - 1]);
         throw new Error(`Property ${lastName} doesn't exist.`);
     }

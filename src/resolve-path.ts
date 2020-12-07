@@ -13,7 +13,7 @@ import {IParseResult, ParseErrorCode} from './types';
 export function resolvePath(this: any, target: any, path: string | string[]): IParseResult {
     const chain = Array.isArray(path) ? path : path.indexOf('.') === -1 ? [path] : path.split('.');
     const len = chain.length;
-    let value, i = 0, missing = false;
+    let value, i = 0, exists = true;
     for (i; i < len; i++) {
         const name = chain[i];
         switch (name) {
@@ -38,7 +38,7 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
             i++;
             if (value === undefined && i === len) {
                 const obj = typeof target === 'object' ? target : target.constructor.prototype;
-                missing = !(name in obj);
+                exists = name in obj;
             }
             break;
         }
@@ -51,7 +51,7 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
         target = value;
     }
     if (i === len) {
-        return {chain, idx: i - 1, missing, value};
+        return {chain, idx: i - 1, exists, value};
     }
     return {chain, idx: i - 1, errorCode: ParseErrorCode.stopped};
 }

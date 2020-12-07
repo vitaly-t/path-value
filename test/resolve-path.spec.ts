@@ -13,11 +13,11 @@ describe('one property', () => {
             expect(resolve.call(undefined, null, 'this')).to.eql({
                 chain: ['this'],
                 idx: 0,
-                missing: false,
+                exists: true,
                 value: undefined
             });
-            expect(resolve.call(null, null, 'this')).to.eql({chain: ['this'], idx: 0, missing: false, value: null});
-            expect(resolve.call(123, null, 'this')).to.eql({chain: ['this'], idx: 0, missing: false, value: 123});
+            expect(resolve.call(null, null, 'this')).to.eql({chain: ['this'], idx: 0, exists: true, value: null});
+            expect(resolve.call(123, null, 'this')).to.eql({chain: ['this'], idx: 0, exists: true, value: 123});
         });
     });
     describe('for primitive types', () => {
@@ -25,27 +25,27 @@ describe('one property', () => {
             expect(resolve(123, 'toExponential')).to.eql({
                 chain: ['toExponential'],
                 idx: 0,
-                missing: false,
+                exists: true,
                 value: '1.23e+2'
             });
-            expect(resolve('test', 'length')).to.eql({chain: ['length'], idx: 0, missing: false, value: 4});
+            expect(resolve('test', 'length')).to.eql({chain: ['length'], idx: 0, exists: true, value: 4});
         });
     });
     describe('for missing properties', () => {
         it('must resolve with undefined', () => {
-            expect(resolve({}, 'one')).to.eql({chain: ['one'], idx: 0, missing: true, value: undefined});
+            expect(resolve({}, 'one')).to.eql({chain: ['one'], idx: 0, exists: false, value: undefined});
         });
     });
     describe('for functions', () => {
         it('must invoke correctly', () => {
             const obj1 = {one: () => 123};
-            expect(resolve(obj1, 'one')).to.eql({chain: ['one'], idx: 0, missing: false, value: 123});
+            expect(resolve(obj1, 'one')).to.eql({chain: ['one'], idx: 0, exists: true, value: 123});
             const obj2 = {
                 one: 123, getValue() {
                     return this.one;
                 }
             };
-            expect(resolve(obj2, 'getValue')).to.eql({chain: ['getValue'], idx: 0, missing: false, value: 123});
+            expect(resolve(obj2, 'getValue')).to.eql({chain: ['getValue'], idx: 0, exists: true, value: 123});
         });
     });
 });
@@ -54,12 +54,12 @@ describe('multiple properties', () => {
     describe('for valid simple names', () => {
         it('must resolve', () => {
             const obj1 = {one: {two: 12}};
-            expect(resolve(obj1, 'one.two')).to.eql({chain: ['one', 'two'], idx: 1, missing: false, value: 12});
+            expect(resolve(obj1, 'one.two')).to.eql({chain: ['one', 'two'], idx: 1, exists: true, value: 12});
             const obj2 = {one: {two: {three: 123}}};
             expect(resolve(obj2, 'one.two.three')).to.eql({
                 chain: ['one', 'two', 'three'],
                 idx: 2,
-                missing: false,
+                exists: true,
                 value: 123
             });
         });
@@ -86,13 +86,13 @@ describe('multiple properties', () => {
             expect(resolve.call(obj1, obj1, 'this.one')).to.eql({
                 chain: ['this', 'one'],
                 idx: 1,
-                missing: false,
+                exists: true,
                 value: 1
             });
             expect(resolve.call(obj1, null, 'this.one')).to.eql({
                 chain: ['this', 'one'],
                 idx: 1,
-                missing: false,
+                exists: true,
                 value: 1
             });
         });
@@ -101,7 +101,7 @@ describe('multiple properties', () => {
             expect(resolve.call(obj1, obj1, 'this.one.two')).to.eql({
                 chain: ['this', 'one', 'two'],
                 idx: 2,
-                missing: false,
+                exists: true,
                 value: 12
             });
         });
@@ -133,7 +133,7 @@ describe('complex', () => {
         expect(resolve.call(obj, null, 'this.getThis.getValue')).to.eql({
             chain: ['this', 'getThis', 'getValue'],
             idx: 2,
-            missing: false,
+            exists: true,
             value: 123
         });
     });

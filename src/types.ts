@@ -30,7 +30,7 @@ export enum ParseErrorCode {
  *
  * When successful:
  *  - `idx` = chain.length - 1
- *  - `missing` is set to true/false
+ *  - `exists` is set to true/false
  *  - `value` is set to the final property value
  *
  *  When unsuccessful:
@@ -62,10 +62,10 @@ export interface IParseResult {
     errorCode?: ParseErrorCode;
 
     /**
-     * In case of a successful resolution, indicates when the last property was
-     * missing both on the target object and its prototype.
+     * It is set only after a successful resolution, to indicate whether the
+     * final property in the chain exists on the object or its prototype.
      */
-    missing?: boolean;
+    exists?: boolean;
 
     /**
      * Final resolved value, if successful, or else the property is not set.
