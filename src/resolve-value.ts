@@ -1,6 +1,6 @@
 import {resolvePath} from './resolve-path';
 import {IPathResult, PathErrorCode} from './types';
-import {ParsePropError} from './error';
+import {PathError} from './error';
 
 /**
  * High-level path-to-value resolution function, to either return the resolved value or throw a detailed error.
@@ -27,18 +27,18 @@ export function resolveValue(this: any, target: any, path: string | string[]): a
 export function validateResult(res: IPathResult): void {
     switch (res.errorCode) {
         case PathErrorCode.emptyName:
-            throw new ParsePropError('Empty names are not allowed.', res);
+            throw new PathError('Empty names are not allowed.', res);
         case PathErrorCode.invalidThis:
-            throw new ParsePropError(`Keyword 'this' can only be at the start.`, res);
+            throw new PathError(`Keyword 'this' can only be at the start.`, res);
         case PathErrorCode.asyncValue:
             const asyncName = JSON.stringify(res.chain[res.idx + 1]);
-            throw new ParsePropError(`Cannot resolve ${asyncName}: async functions and values are not supported.`, res);
+            throw new PathError(`Cannot resolve ${asyncName}: async functions and values are not supported.`, res);
         case PathErrorCode.genValue:
             const genName = JSON.stringify(res.chain[res.idx + 1]);
-            throw new ParsePropError(`Cannot resolve ${genName}: iterators and generators are not supported.`, res);
+            throw new PathError(`Cannot resolve ${genName}: iterators and generators are not supported.`, res);
         case PathErrorCode.stopped:
             const stoppedName = JSON.stringify(res.chain[res.idx + 1]);
-            throw new ParsePropError(`Cannot resolve ${stoppedName} from null/undefined.`, res);
+            throw new PathError(`Cannot resolve ${stoppedName} from null/undefined.`, res);
         default:
             break;
     }
