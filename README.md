@@ -18,7 +18,7 @@ const value = resolveValue(obj, 'first.second.value');
 //=> 123
 ```
 
-It resolves both own and inherited properties, while also allowing properties-functions.
+It resolves both own and inherited properties - the same as JavaScript.
 
 ## Installing
 
@@ -45,7 +45,7 @@ const value3 = resolveValue.call(obj, obj, 'this.value');
 //=> 1 (custom scope = default scope)
 ```
 
-* Lower-level `resolvePath` returns a parsing descriptor:
+* Lower-level `resolvePath` returns a resulting descriptor:
 
 ```ts
 import {resolvePath, IPathResult} from 'path-value';
@@ -80,5 +80,3 @@ See also: [Examples](http://github.com/vitaly-t/path-value/wiki/Examples)
 
 [resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-path.ts#L13
 [resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-value.ts#L14
-
-
