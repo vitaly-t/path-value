@@ -79,5 +79,6 @@ const value = resolveValue(obj, 'first.second');
 See also: [Examples](http://github.com/vitaly-t/path-value/wiki/Examples)
 
 [resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-path.ts#L13
-[resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-value.ts#L15
+[resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-value.ts#L14
+
 
