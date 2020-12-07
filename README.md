@@ -56,7 +56,7 @@ const res: IParseResult = resolvePath(obj, 'first.value');
 //=> {chain: ['first', 'second'], idx: 1, missing: false, value: 123}
 ```
 
-Function `resolvePath` supports custom `this` scope the same as `resolveValue` does.
+Function [resolvePath] supports custom `this` scope the same as [resolveValue] does.
 It will only throw an error if property getter/function throws an error.
 
 * It supports functions-methods within resolution chain:
@@ -77,3 +77,7 @@ const value = resolveValue(obj, 'first.second');
 ```
 
 See also: [Examples](http://github.com/vitaly-t/path-value/wiki/Examples)
+
+[resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-path.ts#L13
+[resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-value.ts#L15
+
