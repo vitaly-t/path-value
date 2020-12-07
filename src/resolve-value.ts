@@ -13,16 +13,18 @@ import {ParsePropError} from './error';
  * If the path starts with `this`, resolution is against the call context.
  */
 export function resolveValue(this: any, target: any, path: string | string[]): any {
-    return validateResult(resolvePath.call(this, target, path));
+    const res = resolvePath.call(this, target, path);
+    validateResult(res);
+    return res.value;
 }
 
 /**
- * Validates IParseResult to either return the value or throw an error.
+ * Validates IParseResult to throw an error, if one is present.
  *
  * @param res
  * Result to validate.
  */
-export function validateResult(res: IParseResult): any {
+export function validateResult(res: IParseResult): void {
     switch (res.errorCode) {
         case ParseErrorCode.emptyName:
             throw new ParsePropError('Empty names are not allowed.', res);
@@ -38,7 +40,7 @@ export function validateResult(res: IParseResult): any {
             const stoppedName = JSON.stringify(res.chain[res.idx + 1]);
             throw new ParsePropError(`Cannot resolve ${stoppedName} from null/undefined.`, res);
         default:
-            return res.value;
+            break;
     }
 }
 
@@ -57,9 +59,10 @@ export function validateResult(res: IParseResult): any {
  */
 export function resolveIfExists(this: any, target: any, path: string | string[]): any {
     const res = resolvePath.call(this, target, path);
+    validateResult(res);
     if (res.missing) {
         const lastName = JSON.stringify(res.chain[res.chain.length - 1]);
         throw new Error(`Property ${lastName} doesn't exist.`);
     }
-    return validateResult(res);
+    return res.value;
 }
