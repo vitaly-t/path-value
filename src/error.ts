@@ -1,4 +1,4 @@
-import {IParseResult, ParseErrorCode} from './types';
+import {IPathResult, ParseErrorCode} from './types';
 
 export class ParsePropError extends Error {
     readonly code: number;
@@ -6,7 +6,7 @@ export class ParsePropError extends Error {
     readonly chain: string[];
     readonly idx: number;
 
-    constructor(msg: string, res: IParseResult) {
+    constructor(msg: string, res: IPathResult) {
         super(msg);
         this.code = <ParseErrorCode>res.errorCode;
         this.codeName = `ParseErrorCode.${ParseErrorCode[this.code]}`;

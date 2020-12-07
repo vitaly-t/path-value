@@ -1,5 +1,5 @@
 import {resolvePath} from './resolve-path';
-import {IParseResult, ParseErrorCode} from './types';
+import {IPathResult, ParseErrorCode} from './types';
 import {ParsePropError} from './error';
 
 /**
@@ -19,12 +19,12 @@ export function resolveValue(this: any, target: any, path: string | string[]): a
 }
 
 /**
- * Validates IParseResult to throw an error, if one is present.
+ * Validates IPathResult to throw an error, if one is present.
  *
  * @param res
  * Result to validate.
  */
-export function validateResult(res: IParseResult): void {
+export function validateResult(res: IPathResult): void {
     switch (res.errorCode) {
         case ParseErrorCode.emptyName:
             throw new ParsePropError('Empty names are not allowed.', res);

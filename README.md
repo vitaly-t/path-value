@@ -53,7 +53,7 @@ import {resolvePath, IParseResult} from 'path-value';
 const obj = {first: {value: 123}};
 
 const res: IParseResult = resolvePath(obj, 'first.value');
-//=> {chain: ['first', 'second'], idx: 1, missing: false, value: 123}
+//=> {chain: ['first', 'second'], idx: 1, exists: true, value: 123}
 ```
 
 Function [resolvePath] supports custom `this` scope the same as [resolveValue] does.

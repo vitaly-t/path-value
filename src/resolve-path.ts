@@ -1,4 +1,4 @@
-import {IParseResult, ParseErrorCode} from './types';
+import {IPathResult, ParseErrorCode} from './types';
 
 /**
  * Low-level path-to-descriptor resolution function.
@@ -10,7 +10,7 @@ import {IParseResult, ParseErrorCode} from './types';
  * Resolution path, either as an array of names, or a dot-separated string.
  * If the path starts with `this`, resolution is against the call context.
  */
-export function resolvePath(this: any, target: any, path: string | string[]): IParseResult {
+export function resolvePath(this: any, target: any, path: string | string[]): IPathResult {
     const chain = Array.isArray(path) ? path : path.indexOf('.') === -1 ? [path] : path.split('.');
     const len = chain.length;
     let value, i = 0, exists = true;

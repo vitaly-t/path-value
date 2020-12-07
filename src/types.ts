@@ -39,7 +39,7 @@ export enum ParseErrorCode {
  *  - `errorCode` is set
  *
  */
-export interface IParseResult {
+export interface IPathResult {
     /**
      * Parsed names of all properties/functions in the chain.
      *
