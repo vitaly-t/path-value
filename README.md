@@ -35,10 +35,10 @@ const obj = {value: 1};
 
 const scope = {value: 2}; // custom/alternative 'this' scope
 
-const value2 = resolveValue.call(scope, obj, 'this.value');
+const a = resolveValue.call(scope, obj, 'this.value');
 //=> 2 (custom 'this' scope is used)
 
-const value3 = resolveValue.call(obj, obj, 'this.value');
+const b = resolveValue.call(obj, obj, 'this.value');
 //=> 1 (custom scope = default scope)
 ```
 
