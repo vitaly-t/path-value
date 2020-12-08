@@ -35,9 +35,8 @@ export enum PathErrorCode {
  *
  *  When unsuccessful:
  *  - `idx` = index of the last resolved property within chain,
- *    which also can be -1 when even none were resolved;
- *  - `errorCode` is set
- *
+ *    which also can be -1 when none were resolved;
+ *  - `errorCode` is set to the error code
  */
 export interface IPathResult {
     /**

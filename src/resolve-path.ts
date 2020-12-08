@@ -7,8 +7,8 @@ import {IPathResult, PathErrorCode} from './types';
  * Default scope to resolve against.
  *
  * @param path
- * Resolution path, either as an array of names, or a dot-separated string.
- * If the path starts with `this`, resolution is against the call context.
+ * Resolution path, either as an array of property names, or a dot-separated string.
+ * If the path starts with `this`, resolution is against the calling context.
  */
 export function resolvePath(this: any, target: any, path: string | string[]): IPathResult {
     const chain = Array.isArray(path) ? path : path.indexOf('.') === -1 ? [path] : path.split('.');

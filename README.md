@@ -18,7 +18,7 @@ const value = resolveValue(obj, 'first.second.value');
 //=> 123
 ```
 
-It resolves both own and inherited properties - the same as JavaScript.
+It resolves both local and inherited properties - the same as JavaScript.
 
 ## Installing
 
@@ -35,9 +35,6 @@ const obj = {value: 1};
 
 const scope = {value: 2}; // custom/alternative 'this' scope
 
-const value1 = resolveValue.call(scope, obj, 'value');
-//=> 1 (default scope is used)
-
 const value2 = resolveValue.call(scope, obj, 'this.value');
 //=> 2 (custom 'this' scope is used)
 
@@ -45,7 +42,7 @@ const value3 = resolveValue.call(obj, obj, 'this.value');
 //=> 1 (custom scope = default scope)
 ```
 
-* Lower-level `resolvePath` returns a resulting descriptor:
+* Lower-level `resolvePath` returns a descriptor:
 
 ```ts
 import {resolvePath, IPathResult} from 'path-value';

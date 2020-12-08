@@ -8,8 +8,8 @@ import {validatePathResult} from './validate';
  * Default scope to resolve against.
  *
  * @param path
- * Resolution path, either as an array of names, or a dot-separated string.
- * If the path starts with `this`, resolution is against the call context.
+ * Resolution path, either as an array of property names, or a dot-separated string.
+ * If the path starts with `this`, resolution is against the calling context.
  */
 export function resolveValue(this: any, target: any, path: string | string[]): any {
     const res = resolvePath.call(this, target, path);
