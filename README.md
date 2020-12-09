@@ -3,6 +3,9 @@ path-value
 
 Simple path-to-value resolver.
 
+[![Build Status](https://travis-ci.org/vitaly-t/path-value.svg?branch=master)](https://travis-ci.org/vitaly-t/path-value)
+[![Coverage Status](https://coveralls.io/repos/vitaly-t/path-value/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/path-value?branch=master)
+
 ```ts
 import {resolveValue} from 'path-value';
 
@@ -53,8 +56,8 @@ const res: IPathResult = resolvePath(obj, 'first.value');
 //=> {chain: ['first', 'second'], idx: 1, exists: true, value: 123}
 ```
 
-Function [resolvePath] supports custom `this` scope the same as [resolveValue] does.
-It will only throw an error if property getter/function throws an error.
+Function [resolvePath] supports custom `this` scope the same as [resolveValue] does. It will only throw an error if
+property getter/function throws an error.
 
 * It supports functions-methods within resolution chain:
 
@@ -76,4 +79,5 @@ const value = resolveValue(obj, 'first.second');
 See also: [Examples](http://github.com/vitaly-t/path-value/wiki/Examples)
 
 [resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-path.ts#L13
+
 [resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-value.ts#L14
