@@ -31,9 +31,14 @@ describe('one property', () => {
             expect(resolve('test', 'length')).to.eql({chain: ['length'], idx: 0, exists: true, value: 4});
         });
     });
-    describe('for missing properties', () => {
+    describe('for missing object properties', () => {
         it('must resolve with undefined', () => {
             expect(resolve({}, 'one')).to.eql({chain: ['one'], idx: 0, exists: false, value: undefined});
+        });
+    });
+    describe('for missing primitive properties', () => {
+        it('must resolve with undefined', () => {
+            expect(resolve(123, 'one')).to.eql({chain: ['one'], idx: 0, exists: false, value: undefined});
         });
     });
     describe('for functions', () => {
@@ -117,6 +122,29 @@ describe('multiple properties', () => {
         });
     });
 
+});
+
+describe('for special function', () => {
+    it('must fail for async', () => {
+        const obj = {value: async () => ({one: 123})};
+        expect(resolve(obj, ['value', 'one'])).to.eql({
+            chain: ['value', 'one'],
+            idx: -1,
+            errorCode: PathErrorCode.asyncValue
+        });
+    });
+    it('must fail for generators', () => {
+        const obj = {
+            value: function* () {
+                return {one: 123};
+            }
+        };
+        expect(resolve(obj, ['value', 'one'])).to.eql({
+            chain: ['value', 'one'],
+            idx: -1,
+            errorCode: PathErrorCode.genValue
+        });
+    });
 });
 
 describe('complex', () => {
