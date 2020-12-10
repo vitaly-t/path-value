@@ -1,7 +1,7 @@
 import {IPathResult, PathErrorCode} from './types';
 
 /**
- * Low-level path-to-descriptor resolution function.
+ * Path-to-descriptor core resolution function.
  *
  * @param target
  * Default scope to resolve against.

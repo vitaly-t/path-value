@@ -26,7 +26,7 @@ export enum PathErrorCode {
 }
 
 /**
- * Result of parsing a property path (name chain, separated by dots).
+ * Result of parsing a property path (from resolvePath function).
  *
  * When successful:
  *  - `idx` = chain.length - 1
