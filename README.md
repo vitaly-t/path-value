@@ -21,7 +21,7 @@ const value = resolveValue(obj, 'first.second.value');
 //=> 123
 ```
 
-It resolves both local and inherited properties - the same as JavaScript.
+It resolves both local and inherited properties.
 
 ## Installing
 
