@@ -45,7 +45,7 @@ const b = resolveValue.call(obj, obj, 'this.value');
 //=> 1 (custom scope = default scope)
 ```
 
-* Lower-level `resolvePath` returns a descriptor:
+* Lower-level [resolvePath] returns an [IPathResult] descriptor:
 
 ```ts
 import {resolvePath, IPathResult} from 'path-value';
@@ -59,7 +59,7 @@ const res: IPathResult = resolvePath(obj, 'first.value');
 Function [resolvePath] supports custom `this` scope the same as [resolveValue] does. It will only throw an error if
 property getter/function throws an error.
 
-* It supports functions-methods within resolution chain:
+* Functions are automatically called within resolution chain:
 
 ```ts
 const obj = {
@@ -79,5 +79,7 @@ const value = resolveValue(obj, 'first.second');
 See also: [Examples](http://github.com/vitaly-t/path-value/wiki/Examples)
 
 [resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-path.ts#L13
+
+[IPathResult]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L41
 
 [resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-value.ts#L14
