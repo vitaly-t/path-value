@@ -3,8 +3,8 @@ path-value
 
 Simple path-to-value resolver.
 
-[![Build Status](https://travis-ci.org/vitaly-t/path-value.svg?branch=master)](https://travis-ci.org/vitaly-t/path-value)
-[![Coverage Status](https://coveralls.io/repos/vitaly-t/path-value/badge.svg?branch=master)](https://coveralls.io/r/vitaly-t/path-value?branch=master)
+[![Build Status](https://travis-ci.org/vitaly-t/path-value.svg?branch=main)](https://travis-ci.org/vitaly-t/path-value)
+[![Coverage Status](https://coveralls.io/repos/github/vitaly-t/path-value/badge.svg?branch=main)](https://coveralls.io/github/vitaly-t/path-value?branch=main)
 
 ```ts
 import {resolveValue} from 'path-value';
