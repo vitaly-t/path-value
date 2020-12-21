@@ -16,18 +16,16 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
     let value, i = 0, exists = true;
     for (i; i < len; i++) {
         const name = chain[i];
-        switch (name) {
-            case '':
-                return {chain, idx: i - 1, errorCode: PathErrorCode.emptyName};
-            case 'this':
-                if (i) {
-                    return {chain, idx: i - 1, errorCode: PathErrorCode.invalidThis};
-                }
-                target = this;
-                value = this;
-                continue; // TODO: Problem here, it doesn't validate 'this' for being async or generator
-            default:
-                break;
+        if (!name) {
+            return {chain, idx: i - 1, errorCode: PathErrorCode.emptyName};
+        }
+        if (name === 'this') {
+            if (i) {
+                return {chain, idx: i - 1, errorCode: PathErrorCode.invalidThis};
+            }
+            target = this;
+            value = this;
+            continue; // TODO: Problem here, it doesn't validate 'this' for being async or generator
         }
         if (target === null || target === undefined) {
             break;
