@@ -59,13 +59,13 @@ const res: IPathResult = resolvePath(obj, 'first.value');
 Function [resolvePath] supports local scope the same as [resolveValue] does. It does not throw errors on its own,
 only when a property getter does so.
 
-#### Functions are automatically called within resolution chain.
+#### Functions - Getters are automatically called within resolution chain.
 
 ```ts
 const obj = {
     first: {
         second() {
-            // resolver correctly passes 'this' = first
+            // called with 'this' = obj.first
             return this.value;
         },
         value: 123
