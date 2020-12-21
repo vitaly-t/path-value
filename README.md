@@ -31,7 +31,7 @@ $ npm i path-value
 
 ## Features
 
-* It supports local scope, via `this` prefix, for alternative resolution:
+#### It supports local scope, via `this` prefix, for alternative resolution.
 
 ```ts
 const obj = {value: 1};
@@ -45,7 +45,7 @@ const b = resolveValue.call(obj, obj, 'this.value');
 //=> 1 (local scope = default scope)
 ```
 
-* Lower-level [resolvePath] returns an [IPathResult] descriptor:
+#### Lower-level [resolvePath] returns an [IPathResult] descriptor.
 
 ```ts
 import {resolvePath, IPathResult} from 'path-value';
@@ -56,10 +56,10 @@ const res: IPathResult = resolvePath(obj, 'first.value');
 //=> {chain: ['first', 'second'], idx: 1, exists: true, value: 123}
 ```
 
-Function [resolvePath] supports local scope the same as [resolveValue] does. It will only throw an error if
-property getter throws an error.
+Function [resolvePath] supports local scope the same as [resolveValue] does. It does not throw errors on its own,
+only when a property getter does so.
 
-* Functions are automatically called within resolution chain:
+#### Functions are automatically called within resolution chain.
 
 ```ts
 const obj = {
