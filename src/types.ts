@@ -1,3 +1,6 @@
+/**
+ * Error code that's used within type IPathResult.
+ */
 export enum PathErrorCode {
     /**
      * Empty name encountered.
@@ -42,7 +45,7 @@ export interface IPathResult {
     /**
      * Parsed names of all properties/functions in the chain.
      *
-     * When resolving against an alternative scope, the first element is `this`.
+     * When resolving against a local scope, the first element is `this`.
      */
     chain: string[];
 
@@ -62,7 +65,7 @@ export interface IPathResult {
 
     /**
      * It is set only after a successful resolution, to indicate whether the
-     * final property in the chain exists on the object or its prototype.
+     * final property in the chain exists on the source object or its prototype.
      */
     exists?: boolean;
 

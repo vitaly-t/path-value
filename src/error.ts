@@ -1,7 +1,7 @@
 import {IPathResult, PathErrorCode} from './types';
 
 /**
- * Custom error used inside IPathResult.
+ * Custom error type that's used inside IPathResult.
  */
 export class PathError extends Error {
     readonly code: number;
