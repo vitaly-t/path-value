@@ -25,7 +25,7 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
             }
             target = this;
             value = this;
-            continue; // TODO: Problem here, it doesn't validate 'this' for being async or generator
+            continue; // TODO: Problem #1; skips validating 'this' for async/generator
         }
         if (target === null || target === undefined) {
             break;

@@ -33,15 +33,15 @@ describe('negative', () => {
         });
     });
     describe('async value', () => {
-        const errMsg = `Cannot resolve "first": async functions and values are not supported.`;
+        const errMsg = (name: string) => `Cannot resolve "${name}": async functions and values are not supported.`;
         /*
-        TODO: doesn't work
+        TODO: doesn't work, see #1
         it('must throw on context', () => {
             const res = resolvePath.call(async () => {
             }, null, 'this');
             expect(() => {
                 validate(res);
-            }).to.throw(errMsg);
+            }).to.throw(errMsg('this'));
         });*/
         it('must throw on value', () => {
             const obj = {
@@ -51,19 +51,19 @@ describe('negative', () => {
             const res = resolvePath(obj, 'first');
             expect(() => {
                 validate(res);
-            }).to.throw(errMsg);
+            }).to.throw(errMsg('first'));
         });
     });
     describe('generator value', () => {
-        const errMsg = `Cannot resolve "first": iterators and generators are not supported.`;
+        const errMsg = (name: string) => `Cannot resolve "${name}": iterators and generators are not supported.`;
         /*
-        TODO: doesn't work
+        TODO: doesn't work, see #1
         it('must throw on context', () => {
             const res = resolvePath.call(function* () {
             }, null, 'this');
             expect(() => {
                 validate(res);
-            }).to.throw(errMsg);
+            }).to.throw(errMsg('this'));
         });*/
         it('must throw on value', () => {
             const obj = {
@@ -73,8 +73,7 @@ describe('negative', () => {
             const res = resolvePath(obj, 'first');
             expect(() => {
                 validate(res);
-            }).to.throw(errMsg);
+            }).to.throw(errMsg('first'));
         });
     });
-
 });
