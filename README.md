@@ -80,6 +80,6 @@ See also: [Examples](http://github.com/vitaly-t/path-value/wiki/Examples)
 
 [resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-path.ts#L13
 
-[IPathResult]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L41
+[IPathResult]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L44
 
 [resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-value.ts#L14

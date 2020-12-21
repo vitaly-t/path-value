@@ -1,6 +1,13 @@
 import {expect} from './header';
 import {resolveValue as resolve} from '../src';
 
+describe('for valid path', () => {
+    it('must return value', () => {
+        const obj = {first: {second: 123}};
+        expect(resolve(obj, 'first.second')).to.eq(123);
+    });
+});
+
 describe('negative', () => {
     describe('target = null/undefined', () => {
         it('must throw standard error', () => {
