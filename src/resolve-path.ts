@@ -23,6 +23,7 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
                 if (i) {
                     return {chain, idx: i - 1, errorCode: PathErrorCode.invalidThis};
                 }
+                // TODO: Problem here, it doesn't validate 'this' for being async or generator
                 target = this;
                 value = this;
                 continue;
