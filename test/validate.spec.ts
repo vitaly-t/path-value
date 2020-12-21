@@ -1,5 +1,5 @@
 import {expect} from './header';
-import {resolvePath, validatePathResult as validate} from '../src';
+import {resolvePath, PathError, validatePathResult as validate} from '../src';
 
 describe('for valid path', () => {
     it('must do nothing', () => {
@@ -17,6 +17,12 @@ describe('negative', () => {
                 validate(res);
             }).to.throw('Empty names are not allowed.');
         });
+        it('must throw PathError', () => {
+            const res = resolvePath(null, '');
+            expect(() => {
+                validate(res);
+            }).to.throw(PathError);
+        });
     });
     describe('trailing this', () => {
         it('must throw error', () => {
@@ -27,13 +33,15 @@ describe('negative', () => {
         });
     });
     describe('async value', () => {
+        const errMsg = `Cannot resolve "first": async functions and values are not supported.`;
         /*
+        TODO: doesn't work
         it('must throw on context', () => {
             const res = resolvePath.call(async () => {
             }, null, 'this');
             expect(() => {
                 validate(res);
-            }).to.throw(`bla`);
+            }).to.throw(errMsg);
         });*/
         it('must throw on value', () => {
             const obj = {
@@ -43,7 +51,30 @@ describe('negative', () => {
             const res = resolvePath(obj, 'first');
             expect(() => {
                 validate(res);
-            }).to.throw(`Cannot resolve "first": async functions and values are not supported.`);
+            }).to.throw(errMsg);
         });
     });
+    describe('generator value', () => {
+        const errMsg = `Cannot resolve "first": iterators and generators are not supported.`;
+        /*
+        TODO: doesn't work
+        it('must throw on context', () => {
+            const res = resolvePath.call(function* () {
+            }, null, 'this');
+            expect(() => {
+                validate(res);
+            }).to.throw(errMsg);
+        });*/
+        it('must throw on value', () => {
+            const obj = {
+                first: function* () {
+                }
+            };
+            const res = resolvePath(obj, 'first');
+            expect(() => {
+                validate(res);
+            }).to.throw(errMsg);
+        });
+    });
+
 });
