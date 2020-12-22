@@ -13,24 +13,27 @@ import {IPathResult, PathErrorCode} from './types';
 export function resolvePath(this: any, target: any, path: string | string[]): IPathResult {
     const chain = Array.isArray(path) ? path : path.indexOf('.') === -1 ? [path] : path.split('.');
     const len = chain.length;
-    let value, i = 0, exists = true;
+    let value, isThis, i = 0, exists = true;
     for (i; i < len; i++) {
         const name = chain[i];
         if (!name) {
             return {chain, idx: i - 1, errorCode: PathErrorCode.emptyName};
         }
-        if (name === 'this') {
+        isThis = name === 'this';
+        if (isThis) {
             if (i) {
                 return {chain, idx: i - 1, errorCode: PathErrorCode.invalidThis};
             }
             target = this;
-            value = this;
-            continue; // TODO: Problem #1; skips validating 'this' for async/generator
         }
         if (target === null || target === undefined) {
+            if (isThis) {
+                value = target;
+                i++;
+            }
             break;
         }
-        const v = target[name];
+        const v = isThis ? target : target[name];
         value = typeof v === 'function' ? v.call(target) : v;
         if (value === undefined || value === null) {
             i++;

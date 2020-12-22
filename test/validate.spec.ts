@@ -26,23 +26,31 @@ describe('negative', () => {
     });
     describe('trailing this', () => {
         it('must throw error', () => {
-            const res = resolvePath({first: 123}, 'first.this');
+            const errMsg = `Keyword 'this' can only be at the start.`;
             expect(() => {
-                validate(res);
-            }).to.throw(`Keyword 'this' can only be at the start.`);
+                validate(resolvePath({first: 123}, 'first.this'));
+            }).to.throw(errMsg);
+            expect(() => {
+                validate(resolvePath({first: 123}, 'this.this'));
+            }).to.throw(errMsg);
         });
     });
     describe('async value', () => {
         const errMsg = (name: string) => `Cannot resolve "${name}": async functions and values are not supported.`;
-        /*
-        TODO: doesn't work, see #1
         it('must throw on context', () => {
-            const res = resolvePath.call(async () => {
+            const res1 = resolvePath.call(async () => {
             }, null, 'this');
             expect(() => {
-                validate(res);
+                validate(res1);
             }).to.throw(errMsg('this'));
-        });*/
+            const res2 = resolvePath.call({
+                first: async () => {
+                }
+            }, null, 'this.first');
+            expect(() => {
+                validate(res2);
+            }).to.throw(errMsg('first'));
+        });
         it('must throw on value', () => {
             const obj = {
                 first: async () => {
@@ -56,15 +64,20 @@ describe('negative', () => {
     });
     describe('generator value', () => {
         const errMsg = (name: string) => `Cannot resolve "${name}": iterators and generators are not supported.`;
-        /*
-        TODO: doesn't work, see #1
         it('must throw on context', () => {
-            const res = resolvePath.call(function* () {
+            const res1 = resolvePath.call(function* () {
             }, null, 'this');
             expect(() => {
-                validate(res);
+                validate(res1);
             }).to.throw(errMsg('this'));
-        });*/
+            const res2 = resolvePath.call({
+                first: function* () {
+                }
+            }, null, 'this.first');
+            expect(() => {
+                validate(res2);
+            }).to.throw(errMsg('first'));
+        });
         it('must throw on value', () => {
             const obj = {
                 first: function* () {
