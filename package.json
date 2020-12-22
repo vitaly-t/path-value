@@ -1,7 +1,7 @@
 {
   "name": "path-value",
-  "version": "0.2.5",
-  "description": "Path-to-value resolver.",
+  "version": "0.3.0",
+  "description": "Property path-to-value resolver, in TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -25,7 +25,9 @@
   "keywords": [
     "path",
     "value",
-    "resolver"
+    "resolver",
+    "parse",
+    "typescript"
   ],
   "author": {
     "name": "Vitaly Tomilov",
