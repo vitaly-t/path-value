@@ -34,15 +34,13 @@ describe('negative', () => {
     });
     describe('async value', () => {
         const errMsg = (name: string) => `Cannot resolve "${name}": async functions and values are not supported.`;
-        /*
-        TODO: doesn't work, see #1
         it('must throw on context', () => {
             const res = resolvePath.call(async () => {
             }, null, 'this');
             expect(() => {
                 validate(res);
             }).to.throw(errMsg('this'));
-        });*/
+        });
         it('must throw on value', () => {
             const obj = {
                 first: async () => {
@@ -56,15 +54,13 @@ describe('negative', () => {
     });
     describe('generator value', () => {
         const errMsg = (name: string) => `Cannot resolve "${name}": iterators and generators are not supported.`;
-        /*
-        TODO: doesn't work, see #1
         it('must throw on context', () => {
             const res = resolvePath.call(function* () {
             }, null, 'this');
             expect(() => {
                 validate(res);
             }).to.throw(errMsg('this'));
-        });*/
+        });
         it('must throw on value', () => {
             const obj = {
                 first: function* () {
