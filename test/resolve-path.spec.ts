@@ -121,7 +121,6 @@ describe('multiple properties', () => {
             });
         });
     });
-
 });
 
 describe('for special function', () => {
