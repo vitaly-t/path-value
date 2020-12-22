@@ -76,7 +76,10 @@ const value = resolveValue(obj, 'first.second');
 //=> 123
 ```
 
-See also: [Examples](http://github.com/vitaly-t/path-value/wiki/Examples)
+See also:
+
+* [Examples](http://github.com/vitaly-t/path-value/wiki/Examples) - special-case examples
+* [Browsers](http://github.com/vitaly-t/path-value/wiki/Browsers) - in-browser usage
 
 [resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-path.ts#L13
 
