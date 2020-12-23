@@ -56,10 +56,10 @@ const res: IPathResult = resolvePath(obj, 'first.value');
 //=> {chain: ['first', 'second'], idx: 1, exists: true, value: 123}
 ```
 
-Function [resolvePath] supports local scope the same as [resolveValue] does. It does not throw errors on its own,
-only when a property getter does so.
+Function [resolvePath] supports local scope the same as [resolveValue] does. It does not throw errors on its own, only
+when a property getter does so.
 
-#### Functions - Getters are automatically called within resolution chain:
+#### Functions are automatically called within resolution chain:
 
 ```ts
 const obj = {
@@ -74,6 +74,15 @@ const obj = {
 
 const value = resolveValue(obj, 'first.second');
 //=> 123
+```
+
+If you want to override this for a specific property, you can prefix it with `^`, to be treated as a value, which can be
+useful when accessing a static class member:
+
+```js
+// Avoid calling Date() below, treat Date function as a value:
+
+resolveValue(global, '^Date.now'); //=> 1608729428776 (current time tick)
 ```
 
 See also:
