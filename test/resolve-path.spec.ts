@@ -53,6 +53,27 @@ describe('one property', () => {
             };
             expect(resolve(obj2, 'getValue')).to.eql({chain: ['getValue'], idx: 0, exists: true, value: 123});
         });
+        it('must treat as values when required', () => {
+            const obj = {
+                first: class {
+                    static second() {
+                        return 123;
+                    }
+                }
+            };
+            expect(resolve(obj, '^first.second')).to.eql({
+                chain: ['^first', 'second'],
+                idx: 1,
+                exists: true,
+                value: 123
+            });
+            expect(resolve.call(obj.first, null, '^this.second')).to.eql({
+                chain: ['^this', 'second'],
+                idx: 1,
+                exists: true,
+                value: 123
+            });
+        });
     });
 });
 
@@ -133,6 +154,17 @@ describe('for special function', () => {
             errorCode: PathErrorCode.asyncValue
         });
     });
+    it('must ignore when treated as values', () => {
+        const obj = {abc: async () => ({})};
+        (obj.abc as any).value = 123;
+        expect(resolve(obj, '^abc.value')).to.eql({
+            chain: ['^abc', 'value'],
+            idx: 1,
+            exists: true,
+            value: 123
+        });
+    });
+
     it('must fail for generators', () => {
         const obj = {
             value: function* () {
