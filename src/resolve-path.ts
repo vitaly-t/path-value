@@ -37,8 +37,12 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
             }
             break;
         }
-        const v = isThis ? target : target[name];
-        value = typeof v === 'function' && invoke ? v.call(target) : v;
+        value = isThis ? target : target[name];
+        if (typeof value === 'function' && invoke) {
+            do {
+                value = value.call(target);
+            } while (typeof value === 'function');
+        }
         if (value === undefined || value === null) {
             i++;
             if (value === undefined && i === len) {

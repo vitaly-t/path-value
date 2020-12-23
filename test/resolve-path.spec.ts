@@ -186,6 +186,26 @@ describe('for special function', () => {
     });
 });
 
+describe('nested functions', () => {
+    it('must resolve recursively', () => {
+        const obj = {
+            scope: {
+                value: 123
+            },
+            first() {
+                return this.second;
+            },
+            second() {
+                return this.third.bind(this.scope);
+            },
+            third() {
+                return (this as any).value;
+            }
+        };
+        expect(resolve(obj, 'first')).to.eql({chain: ['first'], idx: 0, exists: true, value: 123});
+    });
+});
+
 describe('complex', () => {
     it('must resolve everything', () => {
         const obj = {
