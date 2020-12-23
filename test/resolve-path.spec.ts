@@ -1,9 +1,16 @@
 import {expect} from './header';
 import {resolvePath as resolve, PathErrorCode} from '../src';
 
-describe('for empty string', () => {
+describe('for an empty string', () => {
     it('must fail correctly', () => {
         expect(resolve({}, '')).to.eql({chain: [''], idx: -1, errorCode: PathErrorCode.emptyName});
+    });
+});
+
+describe('for an empty array', () => {
+    it('must report correctly', () => {
+        // this is to ensure that an advanced result validator can handle such case correctly:
+        expect(resolve(null, [])).to.eql({chain: [], idx: -1, exists: true, value: undefined});
     });
 });
 

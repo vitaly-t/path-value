@@ -36,3 +36,9 @@ describe('negative', () => {
         });
     });
 });
+
+describe('for an empty array', () => {
+    it('must return undefined', () => {
+        expect(resolve(null, [])).to.be.undefined;
+    });
+});
