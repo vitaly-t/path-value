@@ -4,6 +4,7 @@ import {resolvePath as resolve, PathErrorCode} from '../src';
 describe('for empty string', () => {
     it('must fail correctly', () => {
         expect(resolve({}, '')).to.eql({chain: [''], idx: -1, errorCode: PathErrorCode.emptyName});
+        expect(resolve({}, '^')).to.eql({chain: ['^'], idx: -1, errorCode: PathErrorCode.emptyName});
     });
 });
 

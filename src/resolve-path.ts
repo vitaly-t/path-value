@@ -15,7 +15,11 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
     const len = chain.length;
     let value, isThis, i = 0, exists = true;
     for (i; i < len; i++) {
-        const name = chain[i];
+        let invoke = true, name = chain[i];
+        if (name[0] === '^') {
+            invoke = false;
+            name = name.substring(1);
+        }
         if (!name) {
             return {chain, idx: i - 1, errorCode: PathErrorCode.emptyName};
         }
@@ -34,7 +38,7 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
             break;
         }
         const v = isThis ? target : target[name];
-        value = typeof v === 'function' ? v.call(target) : v;
+        value = typeof v === 'function' && invoke ? v.call(target) : v;
         if (value === undefined || value === null) {
             i++;
             if (value === undefined && i === len) {
