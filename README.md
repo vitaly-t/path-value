@@ -17,8 +17,7 @@ const obj = {
     }
 };
 
-const value = resolveValue(obj, 'first.second.value');
-//=> 123
+resolveValue(obj, 'first.second.value'); //=> 123
 ```
 
 It resolves both local and inherited properties.
@@ -38,11 +37,9 @@ const obj = {value: 1};
 
 const scope = {value: 2}; // local scope
 
-const a = resolveValue.call(scope, obj, 'this.value');
-//=> 2 (local scope is used)
+resolveValue.call(scope, obj, 'this.value'); //=> 2 (local scope is used)
 
-const b = resolveValue.call(obj, obj, 'this.value');
-//=> 1 (local scope = default scope)
+resolveValue.call(obj, obj, 'this.value'); //=> 1 (local scope = default scope)
 ```
 
 #### Lower-level [resolvePath] returns an [IPathResult] descriptor:
@@ -72,8 +69,7 @@ const obj = {
     }
 };
 
-const value = resolveValue(obj, 'first.second');
-//=> 123
+resolveValue(obj, 'first.second'); //=> 123
 ```
 
 Function resolution is recursive. However, a function is treated as a value when it is an ES6 class or has name start with a capital,
