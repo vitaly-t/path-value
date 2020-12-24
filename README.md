@@ -72,12 +72,14 @@ const obj = {
 resolveValue(obj, 'first.second'); //=> 123
 ```
 
-Function resolution is recursive. However, a function is treated as a value when it is an ES6 class or has name start with a capital,
-to correctly handle static class members:
+Function resolution is recursive. However, a function is treated as a value when it is an ES6 class or has name start
+with a capital, to correctly handle static class members:
 
 ```js
 resolveValue(global, 'Number.EPSILON'); //=> 2.220446049250313e-16
 ```
+
+You can also override this with option [ignoreFunctions] as the third parameter.
 
 ---
 
@@ -91,3 +93,6 @@ See also:
 [IPathResult]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L44
 
 [resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-value.ts#L14
+
+[ignoreFunctions]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L23
+
