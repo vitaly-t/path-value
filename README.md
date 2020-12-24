@@ -88,11 +88,11 @@ See also:
 * [Examples](http://github.com/vitaly-t/path-value/wiki/Examples) - special-case examples
 * [Browsers](http://github.com/vitaly-t/path-value/wiki/Browsers) - in-browser usage
 
-[resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-path.ts#L14
+[resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-path.ts#L17
 
-[IPathResult]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L44
+[IPathResult]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L69
 
-[resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-value.ts#L14
+[resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-value.ts#L18
 
 [ignoreFunctions]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L23
 
