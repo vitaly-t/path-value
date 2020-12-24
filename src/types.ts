@@ -1,4 +1,29 @@
 /**
+ * Path-parsing options that can be passed into resolvePath function.
+ */
+export interface IPathOptions {
+    /**
+     * By default, when the parser encounters a function, it will try to figure out
+     * what kind of function it is. If it is an ES6 or ES5 class, it will be treated
+     * as a value, to make it possible to access static methods. And if it is a regular
+     * function, it will be called with `this` set to the containing object. The latter
+     * resolution is recursive, to handle any function that returns another function.
+     *
+     * This option overrides the above behaviour, and forces every function to be treated
+     * as just a value. This will naturally work when referencing static class members.
+     *
+     * Reasons why this option may be wanted:
+     *
+     *  - Determining an ES5 class at run-time isn't 100% accurate; it works only when
+     *    the class has a name that starts with a capital letter.
+     *  - Function verification is the slowest part of the parser, and disabling it can
+     *    boost the parser performance by up to 3 times.
+     *  - Invoking functions by the parser may be considered unsafe in certain context.
+     */
+    ignoreFunctions?: boolean;
+}
+
+/**
  * Error code that's used within type IPathResult.
  */
 export enum PathErrorCode {
@@ -57,6 +82,11 @@ export interface IPathResult {
      * It is -1, when even the first name failed to resolve.
      */
     idx: number;
+
+    /**
+     * Path-parsing options that were passed into resolvePath function.
+     */
+    options?: IPathOptions;
 
     /**
      * When failed to resolve, it is set to the error code.

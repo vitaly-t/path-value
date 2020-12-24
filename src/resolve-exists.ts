@@ -1,5 +1,6 @@
 import {resolvePath} from './resolve-path';
 import {validatePathResult} from './validate';
+import {IPathOptions} from './types';
 
 /**
  * Extends validation for missing last property, to throw an error.
@@ -13,9 +14,12 @@ import {validatePathResult} from './validate';
  * @param path
  * Resolution path, either as an array of property names, or a dot-separated string.
  * If the path starts with `this`, resolution is against the calling context.
+ *
+ * @param options
+ * Path-parsing options.
  */
-export function resolveIfExists(this: any, target: any, path: string | string[]): any {
-    const res = resolvePath.call(this, target, path);
+export function resolveIfExists(this: any, target: any, path: string | string[], options?: IPathOptions): any {
+    const res = resolvePath.call(this, target, path, options);
     validatePathResult(res);
     if (!res.exists) {
         const lastName = JSON.stringify(res.chain[res.chain.length - 1]);

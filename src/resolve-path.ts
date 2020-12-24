@@ -1,4 +1,4 @@
-import {IPathResult, PathErrorCode} from './types';
+import {IPathOptions, IPathResult, PathErrorCode} from './types';
 import {isClass} from './utils';
 
 /**
@@ -10,20 +10,23 @@ import {isClass} from './utils';
  * @param path
  * Resolution path, either as an array of property names, or a dot-separated string.
  * If the path starts with `this`, resolution is against the calling context.
+ *
+ * @param options
+ * Path-parsing options.
  */
-export function resolvePath(this: any, target: any, path: string | string[]): IPathResult {
+export function resolvePath(this: any, target: any, path: string | string[], options?: IPathOptions): IPathResult {
     const chain = Array.isArray(path) ? path : path.indexOf('.') === -1 ? [path] : path.split('.');
     const len = chain.length;
     let value, isThis, i = 0, exists = true;
     for (i; i < len; i++) {
         const name = chain[i];
         if (!name) {
-            return {chain, idx: i - 1, errorCode: PathErrorCode.emptyName};
+            return {chain, options, idx: i - 1, errorCode: PathErrorCode.emptyName};
         }
         isThis = name === 'this';
         if (isThis) {
             if (i) {
-                return {chain, idx: i - 1, errorCode: PathErrorCode.invalidThis};
+                return {chain, options, idx: i - 1, errorCode: PathErrorCode.invalidThis};
             }
             target = this;
         }
@@ -47,15 +50,15 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
             break;
         }
         if (typeof value.then === 'function') {
-            return {chain, idx: i - 1, errorCode: PathErrorCode.asyncValue};
+            return {chain, options, idx: i - 1, errorCode: PathErrorCode.asyncValue};
         }
         if (typeof value.next === 'function') {
-            return {chain, idx: i - 1, errorCode: PathErrorCode.genValue};
+            return {chain, options, idx: i - 1, errorCode: PathErrorCode.genValue};
         }
         target = value;
     }
     if (i === len) {
-        return {chain, idx: i - 1, exists, value};
+        return {chain, options, idx: i - 1, exists, value};
     }
-    return {chain, idx: i - 1, errorCode: PathErrorCode.stopped};
+    return {chain, options, idx: i - 1, errorCode: PathErrorCode.stopped};
 }
