@@ -79,6 +79,8 @@ const value = resolveValue(obj, 'first.second');
 Function resolution is recursive. However, a function is treated as a value when it is an ES6 class or has name start with a capital,
 to correctly handle static class members.
 
+---
+
 See also:
 
 * [Examples](http://github.com/vitaly-t/path-value/wiki/Examples) - special-case examples
