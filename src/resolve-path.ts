@@ -1,4 +1,5 @@
 import {IPathResult, PathErrorCode} from './types';
+import {isClass} from './utils';
 
 /**
  * Path-to-descriptor core resolution function.
@@ -15,11 +16,7 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
     const len = chain.length;
     let value, isThis, i = 0, exists = true;
     for (i; i < len; i++) {
-        let invoke = true, name = chain[i];
-        if (name[0] === '^') {
-            invoke = false;
-            name = name.substring(1);
-        }
+        const name = chain[i];
         if (!name) {
             return {chain, idx: i - 1, errorCode: PathErrorCode.emptyName};
         }
@@ -38,10 +35,8 @@ export function resolvePath(this: any, target: any, path: string | string[]): IP
             break;
         }
         value = isThis ? target : target[name];
-        if (typeof value === 'function' && invoke) {
-            do {
-                value = value.call(target);
-            } while (typeof value === 'function');
+        while (typeof value === 'function' && !isClass(value)) {
+            value = value.call(target);
         }
         if (value === undefined || value === null) {
             i++;

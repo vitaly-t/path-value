@@ -76,14 +76,8 @@ const value = resolveValue(obj, 'first.second');
 //=> 123
 ```
 
-If you want to override this for a specific property, you can prefix it with `^`, to be treated as a value, which can be
-useful when accessing a static class member:
-
-```js
-// Avoid calling Date() below, treat Date function as a value:
-
-resolveValue(global, '^Date.now'); //=> 1608729428776 (current time tick)
-```
+However, functions are treated as values when they are an ES6 class or have name start with a capital.
+This is to correctly process static class members.
 
 See also:
 
