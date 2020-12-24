@@ -77,7 +77,11 @@ const value = resolveValue(obj, 'first.second');
 ```
 
 Function resolution is recursive. However, a function is treated as a value when it is an ES6 class or has name start with a capital,
-to correctly handle static class members.
+to correctly handle static class members:
+
+```js
+resolveValue(global, 'Number.EPSILON'); //=> 2.220446049250313e-16
+```
 
 ---
 
