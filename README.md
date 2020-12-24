@@ -86,7 +86,7 @@ See also:
 * [Examples](http://github.com/vitaly-t/path-value/wiki/Examples) - special-case examples
 * [Browsers](http://github.com/vitaly-t/path-value/wiki/Browsers) - in-browser usage
 
-[resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-path.ts#L13
+[resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-path.ts#L14
 
 [IPathResult]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L44
 
