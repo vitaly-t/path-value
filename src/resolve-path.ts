@@ -16,7 +16,7 @@ import {isClass} from './utils';
  */
 export function resolvePath(this: any, target: any, path: string | string[], options?: IPathOptions): IPathResult {
     const chain = Array.isArray(path) ? path : path.indexOf('.') === -1 ? [path] : path.split('.');
-    const len = chain.length;
+    const len = chain.length, ignoreFunctions = options?.ignoreFunctions;
     let value, isThis, i = 0, exists = true;
     for (i; i < len; i++) {
         const name = chain[i];
@@ -38,7 +38,7 @@ export function resolvePath(this: any, target: any, path: string | string[], opt
             break;
         }
         value = isThis ? target : target[name];
-        while (typeof value === 'function' && !isClass(value)) {
+        while (!ignoreFunctions && typeof value === 'function' && !isClass(value)) {
             value = value.call(target);
         }
         if (value === undefined || value === null) {

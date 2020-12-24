@@ -17,7 +17,7 @@ export interface IPathOptions {
      *  - Determining an ES5 class at run-time isn't 100% accurate; it works only when
      *    the class has a name that starts with a capital letter.
      *  - Function verification is the slowest part of the parser, and disabling it can
-     *    boost the parser performance by up to 3 times.
+     *    boost the parser performance significantly.
      *  - Invoking functions by the parser may be considered unsafe in certain context.
      */
     ignoreFunctions?: boolean;
