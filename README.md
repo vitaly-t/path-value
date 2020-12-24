@@ -76,8 +76,8 @@ const value = resolveValue(obj, 'first.second');
 //=> 123
 ```
 
-However, functions are treated as values when they are an ES6 class or have name start with a capital.
-This is to correctly process static class members.
+Function resolution is recursive. However, a function is treated as a value when it is an ES6 class or has name start with a capital,
+to correctly handle static class members.
 
 See also:
 
