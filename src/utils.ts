@@ -8,5 +8,6 @@
  * Value of type 'function'
  */
 export function isClass(func: Function): boolean {
-    return !!Function.prototype.toString.call(func).match(/^class\s+|function\s+[A-Z]/);
+    const s = Function.prototype.toString.call(func);
+    return s.startsWith('class ') || (s.startsWith('function ') && s[9] <= 'Z' && s[9] >= 'A');
 }
