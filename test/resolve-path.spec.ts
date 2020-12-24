@@ -246,3 +246,22 @@ describe('complex', () => {
         });
     });
 });
+
+describe('with options', () => {
+    describe('when ignoreFunctions is set', () => {
+        it('must use functions as values', () => {
+            function tst() {
+
+            }
+
+            tst.value = 123;
+            expect(resolve({tst}, 'tst.value', {ignoreFunctions: true})).to.eql({
+                chain: ['tst', 'value'],
+                options: {ignoreFunctions: true},
+                idx: 1,
+                exists: true,
+                value: 123
+            });
+        });
+    });
+});
