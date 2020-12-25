@@ -1,5 +1,5 @@
 import {IPathOptions, IPathResult, PathErrorCode, PathInput} from './types';
-import {isClass, pathToArray} from './utils';
+import {isClass, pathToNames} from './utils';
 
 /**
  * Path-to-descriptor core resolution function.
@@ -18,9 +18,9 @@ export function resolvePath(this: any, target: any, path: PathInput, options?: I
     let chain: PathInput;
     if (typeof path === 'string') {
         if (path.indexOf('[') === -1) {
-            chain = path.lastIndexOf('.') === -1 ? path.split('.') : [path];
+            chain = path.lastIndexOf('.') === -1 ? [path] : path.split('.');
         } else {
-            chain = pathToArray(path);
+            chain = pathToNames(path);
         }
     } else {
         chain = path;

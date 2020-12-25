@@ -12,12 +12,19 @@ export function isClass(func: Function): boolean {
     return s.startsWith('class ') || (s.startsWith('function ') && s[9] <= 'Z' && s[9] >= 'A');
 }
 
-export function pathToArray(path: string): string[] {
-    const r = /([a-z0-9_$]+)|\[([0-9]+)]/g;
+/**
+ * Converts a path into array of names.
+ * Automatically handles `[]` indexes + `.` as separator.
+ *
+ * @param path
+ * Path input string, which can contain `[]` indexes, plus `.` separators.
+ */
+export function pathToNames(path: string): string[] {
+    const r = /([\w\d\s$-]+)|\[([0-9]+)]/ig;
     const res = [];
     let m;
     while (m = r.exec(path)) {
-        res.push(m[1] ?? m[2]);
+        res.push(m[1] === undefined ? m[2] : m[1]);
     }
     return res;
 }

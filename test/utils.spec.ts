@@ -1,5 +1,6 @@
 import {expect} from './header';
 import {isClass} from '../src/utils';
+import {pathToNames} from '../dist/utils';
 
 describe('isClass', () => {
     it('must detect ES6 classes', () => {
@@ -36,5 +37,22 @@ describe('isClass', () => {
         expect(isClass(Boolean)).to.be.true;
         expect(isClass(Number)).to.be.true;
         expect(isClass(Function)).to.be.true;
+    });
+});
+
+describe('pathToNames', () => {
+    it('must handle an empty holders', () => {
+        expect(pathToNames('[]')).to.eql([]);
+        expect(pathToNames('.')).to.eql([]);
+    });
+    it('must handle trailing indexes', () => {
+        expect(pathToNames('[0]')).to.eql(['0']);
+        expect(pathToNames('[0][123]')).to.eql(['0', '123']);
+    });
+    it('must handle valid JavaScript names + cases', () => {
+        expect(pathToNames('$0_1a_$9B')).to.eql(['$0_1a_$9B']);
+    });
+    it('must allow anything in the open format', () => {
+        expect(pathToNames(`one1-two2 three`)).to.eql([`one1-two2 three`]);
     });
 });
