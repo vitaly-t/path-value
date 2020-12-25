@@ -1,4 +1,9 @@
 /**
+ * Path Input Type.
+ */
+export type PathInput = string | Array<string | number>;
+
+/**
  * Path-parsing options that can be passed into resolvePath function.
  */
 export interface IPathOptions {
@@ -72,7 +77,7 @@ export interface IPathResult {
      *
      * When resolving against a local scope, the first element is `this`.
      */
-    chain: string[];
+    chain: Array<string | number>;
 
     /**
      * Index of the last property/function in the chain that was successfully resolved.

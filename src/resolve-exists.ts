@@ -1,6 +1,6 @@
 import {resolvePath} from './resolve-path';
 import {validatePathResult} from './validate';
-import {IPathOptions} from './types';
+import {IPathOptions, PathInput} from './types';
 
 /**
  * Extends validation for missing last property, to throw an error.
@@ -18,7 +18,7 @@ import {IPathOptions} from './types';
  * @param options
  * Path-parsing options.
  */
-export function resolveIfExists(this: any, target: any, path: string | string[], options?: IPathOptions): any {
+export function resolveIfExists(this: any, target: any, path: PathInput, options?: IPathOptions): any {
     const res = resolvePath.call(this, target, path, options);
     validatePathResult(res);
     if (!res.exists) {

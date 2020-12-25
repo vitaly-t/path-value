@@ -1,4 +1,4 @@
-import {IPathOptions, IPathResult, PathErrorCode} from './types';
+import {IPathOptions, IPathResult, PathErrorCode, PathInput} from './types';
 import {isClass} from './utils';
 
 /**
@@ -14,7 +14,7 @@ import {isClass} from './utils';
  * @param options
  * Path-parsing options.
  */
-export function resolvePath(this: any, target: any, path: string | string[], options?: IPathOptions): IPathResult {
+export function resolvePath(this: any, target: any, path: PathInput, options?: IPathOptions): IPathResult {
     const chain = Array.isArray(path) ? path : path.indexOf('.') === -1 ? [path] : path.split('.');
     const len = chain.length, ignoreFunctions = options?.ignoreFunctions;
     let value, isThis, i = 0, exists = true;

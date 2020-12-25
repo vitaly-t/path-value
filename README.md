@@ -90,9 +90,8 @@ See also:
 
 [resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-path.ts#L17
 
-[IPathResult]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L69
+[IPathResult]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L74
 
 [resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-value.ts#L18
 
 [ignoreFunctions]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L23
-

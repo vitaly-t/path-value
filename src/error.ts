@@ -6,7 +6,7 @@ import {IPathOptions, IPathResult, PathErrorCode} from './types';
 export class PathError extends Error {
     readonly code: number;
     readonly codeName: string;
-    readonly chain: string[];
+    readonly chain: Array<string | number>;
     readonly options?: IPathOptions;
     readonly idx: number;
 

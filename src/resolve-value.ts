@@ -1,6 +1,6 @@
 import {resolvePath} from './resolve-path';
 import {validatePathResult} from './validate';
-import {IPathOptions} from './types';
+import {IPathOptions, PathInput} from './types';
 
 /**
  * High-level path-to-value resolution function, to either return the resolved value or throw a detailed error.
@@ -15,7 +15,7 @@ import {IPathOptions} from './types';
  * @param options
  * Path-parsing options.
  */
-export function resolveValue(this: any, target: any, path: string | string[], options?: IPathOptions): any {
+export function resolveValue(this: any, target: any, path: PathInput, options?: IPathOptions): any {
     const res = resolvePath.call(this, target, path, options);
     validatePathResult(res);
     return res.value;
