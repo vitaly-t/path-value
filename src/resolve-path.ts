@@ -1,5 +1,5 @@
 import {IPathOptions, IPathResult, PathErrorCode, PathInput} from './types';
-import {isClass} from './utils';
+import {isClass, pathToArray} from './utils';
 
 /**
  * Path-to-descriptor core resolution function.
@@ -15,7 +15,16 @@ import {isClass} from './utils';
  * Path-parsing options.
  */
 export function resolvePath(this: any, target: any, path: PathInput, options?: IPathOptions): IPathResult {
-    const chain = Array.isArray(path) ? path : path.indexOf('.') === -1 ? [path] : path.split('.');
+    let chain: PathInput;
+    if (typeof path === 'string') {
+        if (path.indexOf('[') === -1) {
+            chain = path.lastIndexOf('.') === -1 ? path.split('.') : [path];
+        } else {
+            chain = pathToArray(path);
+        }
+    } else {
+        chain = path;
+    }
     const len = chain.length, ignoreFunctions = options?.ignoreFunctions;
     let value, isThis, i = 0, exists = true;
     for (i; i < len; i++) {

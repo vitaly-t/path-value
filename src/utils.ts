@@ -11,3 +11,13 @@ export function isClass(func: Function): boolean {
     const s = Function.prototype.toString.call(func);
     return s.startsWith('class ') || (s.startsWith('function ') && s[9] <= 'Z' && s[9] >= 'A');
 }
+
+export function pathToArray(path: string): string[] {
+    const r = /([a-z0-9_$]+)|\[([0-9]+)]/g;
+    const res = [];
+    let m;
+    while (m = r.exec(path)) {
+        res.push(m[1] ?? m[2]);
+    }
+    return res;
+}
