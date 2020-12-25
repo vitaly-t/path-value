@@ -1,5 +1,5 @@
 import {expect} from './header';
-import {resolvePath as resolve, PathErrorCode} from '../src';
+import {resolvePath as resolve, PathErrorCode, PathInput} from '../src';
 
 describe('for an empty string', () => {
     it('must fail correctly', () => {
@@ -269,7 +269,8 @@ describe('with options', () => {
 describe('for array indexes', () => {
     it('must support zeros', () => {
         expect(resolve([123], [0])).to.eql({chain: [0], options: undefined, idx: 0, exists: true, value: 123});
-        expect(resolve([1, [2, [3]]], [1, 1, 0])).to.eql({
+        const input: PathInput = [1, 1, 0];
+        expect(resolve([1, [2, [3]]], input)).to.eql({
             chain: [1, 1, 0],
             options: undefined,
             idx: 2,

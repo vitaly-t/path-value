@@ -23,6 +23,21 @@ describe('negative', () => {
                 validate(res);
             }).to.throw(PathError);
         });
+        it('must throw valid error', () => {
+            let err: PathError | undefined;
+            try {
+                validate(resolvePath(null, ''));
+            } catch (e) {
+                err = e;
+            }
+            expect(err).to.not.be.undefined;
+            expect(err?.name).to.eq('Error');
+            expect(err?.options).to.be.undefined;
+            expect(err?.code).to.eq(1);
+            expect(err?.codeName).to.eq('PathErrorCode.emptyName');
+            expect(err?.chain).to.eql(['']);
+            expect(err?.idx).to.eq(-1);
+        });
     });
     describe('trailing this', () => {
         it('must throw error', () => {

@@ -1,7 +1,7 @@
 /**
  * Path Input Type.
  */
-export type PathInput = string | Array<string | number>;
+export type PathInput = string | (string | number)[];
 
 /**
  * Path-parsing options that can be passed into resolvePath function.
