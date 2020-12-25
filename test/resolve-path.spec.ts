@@ -265,3 +265,16 @@ describe('with options', () => {
         });
     });
 });
+
+describe('for array indexes', () => {
+    it('must support zeros', () => {
+        expect(resolve([123], [0])).to.eql({chain: [0], options: undefined, idx: 0, exists: true, value: 123});
+        expect(resolve([1, [2, [3]]], [1, 1, 0])).to.eql({
+            chain: [1, 1, 0],
+            options: undefined,
+            idx: 2,
+            exists: true,
+            value: 3
+        });
+    });
+});

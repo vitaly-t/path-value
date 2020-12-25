@@ -20,7 +20,7 @@ export function resolvePath(this: any, target: any, path: PathInput, options?: I
     let value, isThis, i = 0, exists = true;
     for (i; i < len; i++) {
         const name = chain[i];
-        if (!name) {
+        if (name === '') {
             return {chain, options, idx: i - 1, errorCode: PathErrorCode.emptyName};
         }
         isThis = name === 'this';
