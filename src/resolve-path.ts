@@ -15,7 +15,7 @@ import {isClass} from './utils';
  * Path-parsing options.
  */
 export function resolvePath(this: any, target: any, path: PathInput, options?: IPathOptions): IPathResult {
-    const chain = Array.isArray(path) ? path : path.indexOf('.') === -1 ? [path] : path.split('.');
+    const chain = typeof path === 'string' ? path.indexOf('.') === -1 ? [path] : path.split('.') : path;
     const len = chain.length, ignoreFunctions = options?.ignoreFunctions;
     let value, isThis, i = 0, exists = true;
     for (i; i < len; i++) {
