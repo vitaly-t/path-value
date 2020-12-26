@@ -85,6 +85,7 @@ You can also override this with option [ignoreFunctions] as the third parameter.
 
 See also:
 
+* [Performance](http://github.com/vitaly-t/path-value/wiki/Performance) - performance considerations
 * [Examples](http://github.com/vitaly-t/path-value/wiki/Examples) - special-case examples
 * [Browsers](http://github.com/vitaly-t/path-value/wiki/Browsers) - in-browser usage
 
@@ -94,4 +95,4 @@ See also:
 
 [resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-value.ts#L18
 
-[ignoreFunctions]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L23
+[ignoreFunctions]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L28
