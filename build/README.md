@@ -28,5 +28,5 @@ All files will be generated in folder `../dist/web`.
 After including `path-value.min.js` into your web page, `pathValue` namespace will have all the functions:
 
 ```js
-pathValue.reolveValue({value: 123}, 'value'); //=> 123
+pathValue.resolveValue({value: 123}, 'value'); //=> 123
 ```
