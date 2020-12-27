@@ -11,10 +11,11 @@ Builds web version for `path-value`.
 $ npm i
 ```
 
-* Generate files:
+* Build files:
 
 ```shell
-$ gulp
+$ npm run build
 ```
 
-Destination files will be generated in `../dist`.
+All destination files will be generated in folder `../dist/web`.
+

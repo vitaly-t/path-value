@@ -8,8 +8,9 @@ const npm = {
     gzip: require('gulp-gzip')
 };
 
-const SOURCE = '../dist/index.js';
-const DEST = 'path-value.min.js';
+const SOURCE_FILE = '../dist/index.js';
+const DEST_FILE = 'path-value.min.js';
+const OUT_DIR = '../dist/web';
 
 const version = require('../package.json').version;
 
@@ -22,19 +23,19 @@ const copyright = `/**
 `;
 
 gulp.task('minify', () => {
-    return gulp.src(SOURCE)
+    return gulp.src(SOURCE_FILE)
         .pipe(npm.sourcemaps.init())
         .pipe(npm.uglify())
         .pipe(npm.header(copyright))
-        .pipe(npm.rename(DEST))
+        .pipe(npm.rename(DEST_FILE))
         .pipe(npm.sourcemaps.write('.'))
-        .pipe(gulp.dest('../dist/web'));
+        .pipe(gulp.dest(OUT_DIR));
 });
 
 gulp.task('zip', () => {
-    return gulp.src('../dist/web/path-value.min.js')
+    return gulp.src(`${OUT_DIR}/${DEST_FILE}`)
         .pipe(npm.gzip({extension: 'gzip'}))
-        .pipe(gulp.dest('../dist'));
+        .pipe(gulp.dest(OUT_DIR));
 });
 
 gulp.task('default', gulp.series(['minify', 'zip']));
