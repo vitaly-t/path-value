@@ -1,10 +1,8 @@
-@ECHO OFF
-
 REM Generates all distribution files for the library for the ../dist folder.
 
-IF NOT EXIST "../node_modules/browserify/bin/cmd.js" npm i browserify --no-save
+IF NOT EXIST "../node_modules/browserify/bin/cmd.js" call npm i browserify --no-save
 
-IF NOT EXIST "../node_modules/uglify-js/bin/uglifyjs" npm i uglify-js --no-save
+IF NOT EXIST "../node_modules/uglify-js/bin/uglifyjs" call npm i uglify-js --no-save
 
 node ../node_modules/browserify/bin/cmd.js ../dist/index.js -o path-value.js -s pv
 

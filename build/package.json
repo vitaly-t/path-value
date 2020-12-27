@@ -1,0 +1,25 @@
+{
+  "name": "path-value-build",
+  "version": "0.0.1",
+  "description": "path-value web builder",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vitaly-t/path-value.git"
+  },
+  "author": {
+    "name": "Vitaly Tomilov",
+    "email": "vitaly.tomilov@gmail.com"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=10"
+  },
+  "devDependencies": {
+    "gulp": "4.0.2",
+    "gulp-sourcemaps": "3.0.0",
+    "gulp-eslint": "6.0.0",
+    "gulp-rename": "2.0.0",
+    "gulp-header": "2.0.9",
+    "gulp-gzip": "1.4.2"
+  }
+}
