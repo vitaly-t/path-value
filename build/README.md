@@ -3,6 +3,12 @@ path-value web build
 
 Builds version of `path-value` for web distribution.
 
+Before building web files, you need to build source JS files from the main project:
+
+```
+$ npm run build
+```
+
 ## Steps
 
 * Install local dependencies:
