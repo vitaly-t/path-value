@@ -1,21 +1,26 @@
-Path-Value Web Build
+path-value web build
 --------------------
 
-Builds web version for `path-value`.
+Builds version of `path-value` for web distribution.
 
 ## Steps
 
 * Install local dependencies:
 
-```shell
+```sh
 $ npm i
 ```
 
-* Build files:
+* Build web files:
 
-```shell
+```sh
 $ npm run build
 ```
 
-All destination files will be generated in folder `../dist/web`.
+All files will be generated in folder `../dist/web`.
 
+After including `path-value.min.js` into your web page, `pathValue` namespace will have all the functions:
+
+```js
+pathValue.reolveValue({value: 123}, 'value'); //=> 123
+```

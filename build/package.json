@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "description": "path-value web builder",
   "scripts": {
-    "build": "gulp"
+    "build": "browserify ../dist/index.js -o path-value.js -s pathValue && gulp"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,8 @@
   "engines": {
     "node": ">=10"
   },
-  "devDependencies": {
+  "dependencies": {
+    "browserify": "17.0.0",
     "gulp": "4.0.2",
     "gulp-eslint": "6.0.0",
     "gulp-gzip": "1.4.2",
