@@ -1,9 +1,9 @@
 {
   "name": "path-value-build",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "path-value web builder",
   "scripts": {
-    "build": "browserify ../dist/index.js -o path-value.js -s pathValue && gulp"
+    "build": "browserify ../dist-web/index.js -o path-value.js -s pathValue && gulp"
   },
   "repository": {
     "type": "git",

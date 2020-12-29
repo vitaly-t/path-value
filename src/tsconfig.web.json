@@ -1,10 +1,10 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "ES2018",
+    "target": "ES5",
     "declaration": true,
-    "declarationDir": "../dist",
-    "outDir": "../dist",
+    "declarationDir": "../dist-web",
+    "outDir": "../dist-web",
     "strict": true,
     "noUnusedLocals": true
   },

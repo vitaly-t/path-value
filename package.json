@@ -1,13 +1,13 @@
 {
   "name": "path-value",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Property path-to-value resolver, in TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc -p src && tsc -p test",
-    "lint": "tslint --fix ./src/**/*.ts ./test/**/*.ts",
-    "test": "npm run lint && npm run build && nyc mocha -r ts-node/register test/**/*.spec.ts",
+    "build": "tsc -p src && tsc -p src/tsconfig.web.json",
+    "lint": "tsc -p test && tslint --fix ./src/**/*.ts ./test/**/*.ts",
+    "test": "npm run lint && nyc mocha -r ts-node/register test/**/*.spec.ts",
     "travis": "nyc npm test && nyc report --reporter=text-lcov | coveralls"
   },
   "files": [
@@ -35,7 +35,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=10"
+    "node": ">=10.3.0"
   },
   "devDependencies": {
     "@types/chai": "4.2.14",
