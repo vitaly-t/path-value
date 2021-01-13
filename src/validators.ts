@@ -36,6 +36,6 @@ export function validateErrorCode(res: IPathResult): void {
 export function validateExists(res: IPathResult): void {
     if (!res.exists) {
         const lastName = JSON.stringify(res.chain[res.chain.length - 1]);
-        throw new Error(`Property ${lastName} doesn't exist.`);
+        throw new PathError(`Property ${lastName} doesn't exist.`, res);
     }
 }
