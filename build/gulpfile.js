@@ -16,7 +16,7 @@ const version = require('../package.json').version;
 
 const copyright = `/**
  * path-value v${version}
- * Copyright 2020 Vitaly Tomilov
+ * Copyright 2021 Vitaly Tomilov
  * Released under the MIT License
  * https://github.com/vitaly-t/path-value
  */
