@@ -76,7 +76,7 @@ Function resolution is recursive. However, a function is treated as a value when
 with a capital, to correctly handle static class members:
 
 ```js
-resolvers(global, 'Number.EPSILON'); //=> 2.220446049250313e-16
+resolveValue(global, 'Number.EPSILON'); //=> 2.220446049250313e-16
 ```
 
 You can also override this with option [ignoreFunctions] as the third parameter.
