@@ -7,6 +7,7 @@ export class PathError extends Error {
     readonly code: number;
     readonly codeName: string;
     readonly chain: (string | number)[];
+    readonly scope: any;
     readonly options?: IPathOptions;
     readonly idx: number;
 
@@ -15,6 +16,7 @@ export class PathError extends Error {
         this.code = <PathErrorCode>res.errorCode;
         this.codeName = `PathErrorCode.${PathErrorCode[this.code]}`;
         this.chain = res.chain;
+        this.scope = res.scope;
         this.options = res.options;
         this.idx = res.idx;
         Object.setPrototypeOf(this, PathError.prototype);

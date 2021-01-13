@@ -5,7 +5,7 @@ import {isClass} from './utils';
  * Path-to-descriptor core resolution function.
  *
  * @param target
- * Default scope to resolve against.
+ * Default resolution scope.
  *
  * @param path
  * Resolution path, either as an array of property names, or a dot-separated string.

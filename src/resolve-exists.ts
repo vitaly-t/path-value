@@ -9,7 +9,7 @@ import {IPathOptions, PathInput} from './types';
  * and not part of the official API.
  *
  * @param target
- * Default scope to resolve against.
+ * Default resolution scope.
  *
  * @param path
  * Resolution path, either as an array of property names, or a dot-separated string.

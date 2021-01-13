@@ -6,7 +6,7 @@ import {IPathOptions, PathInput} from './types';
  * High-level path-to-value resolution function, to either return the resolved value or throw a detailed error.
  *
  * @param target
- * Default scope to resolve against.
+ * Default resolution scope.
  *
  * @param path
  * Resolution path, either as an array of property names, or a dot-separated string.

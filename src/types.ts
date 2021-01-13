@@ -80,8 +80,8 @@ export interface IPathResult {
     chain: Array<string | number>;
 
     /**
-     * Resolution scope for the path. When the path starts with `this`,
-     * it is the value of `this` that was passed, or else it is the value
+     * Resolution scope/target for the path. When the path starts with `this`,
+     * it is the value of `this` that was passed in, or else it is the value
      * of parameter `target`.
      */
     scope: any;
