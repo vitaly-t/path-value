@@ -80,6 +80,13 @@ export interface IPathResult {
     chain: Array<string | number>;
 
     /**
+     * Resolution scope for the path. When the path starts with `this`,
+     * it is the value of `this` that was passed, or else it is the value
+     * of parameter `target`.
+     */
+    scope: any;
+
+    /**
      * Index of the last property/function in the chain that was successfully resolved.
      *
      * When successful, idx = chain.length - 1

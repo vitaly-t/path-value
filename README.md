@@ -50,7 +50,7 @@ import {resolvePath, IPathResult} from 'path-value';
 const obj = {first: {value: 123}};
 
 const res: IPathResult = resolvePath(obj, 'first.value');
-//=> {chain: ['first', 'second'], idx: 1, exists: true, value: 123}
+//=> {chain: ['first', 'second'], scope: obj, idx: 1, exists: true, value: 123}
 ```
 
 Function [resolvePath] supports local scope the same as [resolveValue] does. It does not throw errors on its own, only

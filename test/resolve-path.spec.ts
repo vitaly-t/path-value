@@ -3,14 +3,28 @@ import {resolvePath as resolve, PathErrorCode, PathInput} from '../src';
 
 describe('for an empty string', () => {
     it('must fail correctly', () => {
-        expect(resolve({}, '')).to.eql({chain: [''], options: undefined, idx: -1, errorCode: PathErrorCode.emptyName});
+        const target = {};
+        expect(resolve(target, '')).to.eql({
+            chain: [''],
+            scope: target,
+            options: undefined,
+            idx: -1,
+            errorCode: PathErrorCode.emptyName
+        });
     });
 });
 
 describe('for an empty array', () => {
     it('must report correctly', () => {
         // this is to ensure that an advanced result validator can handle such case correctly:
-        expect(resolve(null, [])).to.eql({chain: [], options: undefined, idx: -1, exists: true, value: undefined});
+        expect(resolve(null, [])).to.eql({
+            chain: [],
+            scope: null,
+            options: undefined,
+            idx: -1,
+            exists: true,
+            value: undefined
+        });
     });
 });
 
@@ -19,6 +33,7 @@ describe('one property', () => {
         it('must resolve any value', () => {
             expect(resolve.call(undefined, null, 'this')).to.eql({
                 chain: ['this'],
+                scope: undefined,
                 options: undefined,
                 idx: 0,
                 exists: true,
@@ -26,6 +41,7 @@ describe('one property', () => {
             });
             expect(resolve.call(null, null, 'this')).to.eql({
                 chain: ['this'],
+                scope: null,
                 options: undefined,
                 idx: 0,
                 exists: true,
@@ -33,6 +49,7 @@ describe('one property', () => {
             });
             expect(resolve.call(123, null, 'this')).to.eql({
                 chain: ['this'],
+                scope: 123,
                 options: undefined,
                 idx: 0,
                 exists: true,
@@ -42,15 +59,19 @@ describe('one property', () => {
     });
     describe('for primitive types', () => {
         it('must call functions with context', () => {
-            expect(resolve(123, 'toExponential')).to.eql({
+            const scope1 = 123;
+            expect(resolve(scope1, 'toExponential')).to.eql({
                 chain: ['toExponential'],
+                scope: scope1,
                 options: undefined,
                 idx: 0,
                 exists: true,
                 value: '1.23e+2'
             });
-            expect(resolve('test', 'length')).to.eql({
+            const scope2 = 'test';
+            expect(resolve(scope2, 'length')).to.eql({
                 chain: ['length'],
+                scope: scope2,
                 options: undefined,
                 idx: 0,
                 exists: true,
@@ -60,8 +81,10 @@ describe('one property', () => {
     });
     describe('for missing object properties', () => {
         it('must resolve with undefined', () => {
-            expect(resolve({}, 'one')).to.eql({
+            const scope = {};
+            expect(resolve(scope, 'one')).to.eql({
                 chain: ['one'],
+                scope,
                 options: undefined,
                 idx: 0,
                 exists: false,
@@ -71,8 +94,10 @@ describe('one property', () => {
     });
     describe('for missing primitive properties', () => {
         it('must resolve with undefined', () => {
-            expect(resolve(123, 'one')).to.eql({
+            const scope = 123;
+            expect(resolve(scope, 'one')).to.eql({
                 chain: ['one'],
+                scope,
                 options: undefined,
                 idx: 0,
                 exists: false,
@@ -83,7 +108,14 @@ describe('one property', () => {
     describe('for functions', () => {
         it('must invoke correctly', () => {
             const obj1 = {one: () => 123};
-            expect(resolve(obj1, 'one')).to.eql({chain: ['one'], options: undefined, idx: 0, exists: true, value: 123});
+            expect(resolve(obj1, 'one')).to.eql({
+                chain: ['one'],
+                scope: obj1,
+                options: undefined,
+                idx: 0,
+                exists: true,
+                value: 123
+            });
             const obj2 = {
                 one: 123, getValue() {
                     return this.one;
@@ -91,6 +123,7 @@ describe('one property', () => {
             };
             expect(resolve(obj2, 'getValue')).to.eql({
                 chain: ['getValue'],
+                scope: obj2,
                 options: undefined,
                 idx: 0,
                 exists: true,
@@ -106,6 +139,7 @@ describe('multiple properties', () => {
             const obj1 = {one: {two: 12}};
             expect(resolve(obj1, 'one.two')).to.eql({
                 chain: ['one', 'two'],
+                scope: obj1,
                 options: undefined,
                 idx: 1,
                 exists: true,
@@ -114,6 +148,7 @@ describe('multiple properties', () => {
             const obj2 = {one: {two: {three: 123}}};
             expect(resolve(obj2, 'one.two.three')).to.eql({
                 chain: ['one', 'two', 'three'],
+                scope: obj2,
                 options: undefined,
                 idx: 2,
                 exists: true,
@@ -126,6 +161,7 @@ describe('multiple properties', () => {
             const obj1 = {};
             expect(resolve(obj1, 'one.two')).to.eql({
                 chain: ['one', 'two'],
+                scope: obj1,
                 options: undefined,
                 idx: 0,
                 errorCode: PathErrorCode.stopped
@@ -133,6 +169,7 @@ describe('multiple properties', () => {
             const obj2 = {one: {}};
             expect(resolve(obj2, 'one.two.three.four')).to.eql({
                 chain: ['one', 'two', 'three', 'four'],
+                scope: obj2,
                 options: undefined,
                 idx: 1,
                 errorCode: PathErrorCode.stopped
@@ -144,6 +181,7 @@ describe('multiple properties', () => {
             const obj1 = {one: 1};
             expect(resolve.call(obj1, obj1, 'this.one')).to.eql({
                 chain: ['this', 'one'],
+                scope: obj1,
                 options: undefined,
                 idx: 1,
                 exists: true,
@@ -151,6 +189,7 @@ describe('multiple properties', () => {
             });
             expect(resolve.call(obj1, null, 'this.one')).to.eql({
                 chain: ['this', 'one'],
+                scope: obj1,
                 options: undefined,
                 idx: 1,
                 exists: true,
@@ -161,6 +200,7 @@ describe('multiple properties', () => {
             const obj1 = {one: {two: 12}};
             expect(resolve.call(obj1, obj1, 'this.one.two')).to.eql({
                 chain: ['this', 'one', 'two'],
+                scope: obj1,
                 options: undefined,
                 idx: 2,
                 exists: true,
@@ -173,6 +213,7 @@ describe('multiple properties', () => {
             const obj = {one: 1};
             expect(resolve(obj, 'one.this')).to.eql({
                 chain: ['one', 'this'],
+                scope: obj,
                 options: undefined,
                 idx: 0,
                 errorCode: PathErrorCode.invalidThis
@@ -186,6 +227,7 @@ describe('for special function', () => {
         const obj = {value: async () => ({one: 123})};
         expect(resolve(obj, ['value', 'one'])).to.eql({
             chain: ['value', 'one'],
+            scope: obj,
             options: undefined,
             idx: -1,
             errorCode: PathErrorCode.asyncValue
@@ -199,6 +241,7 @@ describe('for special function', () => {
         };
         expect(resolve(obj, ['value', 'one'])).to.eql({
             chain: ['value', 'one'],
+            scope: obj,
             options: undefined,
             idx: -1,
             errorCode: PathErrorCode.genValue
@@ -222,7 +265,14 @@ describe('nested functions', () => {
                 return (this as any).value;
             }
         };
-        expect(resolve(obj, 'first')).to.eql({chain: ['first'], options: undefined, idx: 0, exists: true, value: 123});
+        expect(resolve(obj, 'first')).to.eql({
+            chain: ['first'],
+            scope: obj,
+            options: undefined,
+            idx: 0,
+            exists: true,
+            value: 123
+        });
     });
 });
 
@@ -239,6 +289,7 @@ describe('complex', () => {
         };
         expect(resolve.call(obj, null, 'this.getThis.getValue')).to.eql({
             chain: ['this', 'getThis', 'getValue'],
+            scope: obj,
             options: undefined,
             idx: 2,
             exists: true,
@@ -255,8 +306,10 @@ describe('with options', () => {
             }
 
             tst.value = 123;
-            expect(resolve({tst}, 'tst.value', {ignoreFunctions: true})).to.eql({
+            const target = {tst};
+            expect(resolve(target, 'tst.value', {ignoreFunctions: true})).to.eql({
                 chain: ['tst', 'value'],
+                scope: target,
                 options: {ignoreFunctions: true},
                 idx: 1,
                 exists: true,
@@ -268,10 +321,20 @@ describe('with options', () => {
 
 describe('for array indexes', () => {
     it('must support zeros', () => {
-        expect(resolve([123], [0])).to.eql({chain: [0], options: undefined, idx: 0, exists: true, value: 123});
+        const t1 = [123];
+        expect(resolve(t1, [0])).to.eql({
+            chain: [0],
+            scope: t1,
+            options: undefined,
+            idx: 0,
+            exists: true,
+            value: 123
+        });
         const input: PathInput = [1, 1, 0];
-        expect(resolve([1, [2, [3]]], input)).to.eql({
+        const t2 = [1, [2, [3]]];
+        expect(resolve(t2, input)).to.eql({
             chain: [1, 1, 0],
+            scope: t2,
             options: undefined,
             idx: 2,
             exists: true,

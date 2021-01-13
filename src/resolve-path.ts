@@ -17,18 +17,18 @@ import {isClass} from './utils';
 export function resolvePath(this: any, target: any, path: PathInput, options?: IPathOptions): IPathResult {
     const chain = typeof path === 'string' ? path.indexOf('.') === -1 ? [path] : path.split('.') : path;
     const len = chain.length, ignoreFunctions = options && options.ignoreFunctions;
-    let value, isThis, i = 0, exists = true;
+    let value, isThis, i = 0, exists = true, scope = target;
     for (i; i < len; i++) {
         const name = chain[i];
         if (name === '') {
-            return {chain, options, idx: i - 1, errorCode: PathErrorCode.emptyName};
+            return {chain, scope, options, idx: i - 1, errorCode: PathErrorCode.emptyName};
         }
         isThis = name === 'this';
         if (isThis) {
             if (i) {
-                return {chain, options, idx: i - 1, errorCode: PathErrorCode.invalidThis};
+                return {chain, scope, options, idx: i - 1, errorCode: PathErrorCode.invalidThis};
             }
-            target = this;
+            target = scope = this;
         }
         if (target === null || target === undefined) {
             if (isThis) {
@@ -50,15 +50,15 @@ export function resolvePath(this: any, target: any, path: PathInput, options?: I
             break;
         }
         if (typeof value.then === 'function') {
-            return {chain, options, idx: i - 1, errorCode: PathErrorCode.asyncValue};
+            return {chain, scope, options, idx: i - 1, errorCode: PathErrorCode.asyncValue};
         }
         if (typeof value.next === 'function') {
-            return {chain, options, idx: i - 1, errorCode: PathErrorCode.genValue};
+            return {chain, scope, options, idx: i - 1, errorCode: PathErrorCode.genValue};
         }
         target = value;
     }
     if (i === len) {
-        return {chain, options, idx: i - 1, exists, value};
+        return {chain, scope, options, idx: i - 1, exists, value};
     }
-    return {chain, options, idx: i - 1, errorCode: PathErrorCode.stopped};
+    return {chain, scope, options, idx: i - 1, errorCode: PathErrorCode.stopped};
 }
