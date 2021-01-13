@@ -76,7 +76,7 @@ Function resolution is recursive. However, a function is treated as a value when
 with a capital, to correctly handle static class members:
 
 ```js
-resolveValue(global, 'Number.EPSILON'); //=> 2.220446049250313e-16
+resolvers(global, 'Number.EPSILON'); //=> 2.220446049250313e-16
 ```
 
 You can also override this with option [ignoreFunctions] as the third parameter.
@@ -89,10 +89,10 @@ See also:
 * [Examples](http://github.com/vitaly-t/path-value/wiki/Examples) - special-case examples
 * [Browsers](http://github.com/vitaly-t/path-value/wiki/Browsers) - in-browser usage
 
-[resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-path.ts#L17
+[resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/parser.ts#L17
 
 [IPathResult]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L74
 
-[resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolve-value.ts#L18
+[resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolvers.ts#L18
 
 [ignoreFunctions]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L28

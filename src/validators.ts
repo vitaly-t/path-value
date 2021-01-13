@@ -2,12 +2,12 @@ import {IPathResult, PathErrorCode} from './types';
 import {PathError} from './error';
 
 /**
- * Validates IPathResult to throw an error, if one is present.
+ * Validates `errorCode` within IPathResult to throw a detailed error when it is set.
  *
  * @param res
  * Result to validate.
  */
-export function validatePathResult(res: IPathResult): void {
+export function validateErrorCode(res: IPathResult): void {
     switch (res.errorCode) {
         case PathErrorCode.emptyName:
             throw new PathError('Empty names are not allowed.', res);
@@ -24,5 +24,18 @@ export function validatePathResult(res: IPathResult): void {
             throw new PathError(`Cannot resolve ${stoppedName} from null/undefined.`, res);
         default:
             break;
+    }
+}
+
+/**
+ * Validates `exists` within IPathResult to throw a detailed error when it is `false`.
+ *
+ * @param res
+ * Result to validate.
+ */
+export function validateExists(res: IPathResult): void {
+    if (!res.exists) {
+        const lastName = JSON.stringify(res.chain[res.chain.length - 1]);
+        throw new Error(`Property ${lastName} doesn't exist.`);
     }
 }
