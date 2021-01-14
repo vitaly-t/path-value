@@ -1,5 +1,12 @@
 import {expect} from './header';
-import {resolvePath as resolve, PathError, validateErrorCode, validateExists, IPathResult} from '../src';
+import {
+    resolvePath as resolve,
+    PathError,
+    PathExistError,
+    validateErrorCode,
+    validateExists,
+    IPathResult
+} from '../src';
 
 describe('validateErrorCode', () => {
     describe('for valid path', () => {
@@ -118,15 +125,45 @@ describe('validateExists', () => {
         };
         expect(validateExists(res)).to.be.undefined;
     });
-    it('must throw when flag is not set', () => {
-        const res: IPathResult = {
-            chain: ['first'],
-            scope: null,
-            idx: 0,
-            exists: false
-        };
-        expect(() => {
-            validateExists(res);
-        }).to.throw(`Property "first" doesn't exist.`);
+    describe('for a string', () => {
+        it('must throw when flag is not set', () => {
+            const res: IPathResult = {
+                chain: ['first'],
+                scope: 123,
+                idx: 0,
+                exists: false
+            };
+            let err: PathExistError = {} as any;
+            try {
+                validateExists(res);
+            } catch (e) {
+                err = e;
+            }
+            expect(err.message).to.eq(`Property "first" doesn't exist.`);
+            expect(err.chain).to.eql(['first']);
+            expect(err.propName).to.eq('first');
+            expect(err.scope).to.eq(123);
+        });
     });
+    describe('for a number', () => {
+        it('must throw when flag is not set', () => {
+            const res: IPathResult = {
+                chain: ['first', 222],
+                scope: {first: []},
+                idx: 1,
+                exists: false
+            };
+            let err: PathExistError = {} as any;
+            try {
+                validateExists(res);
+            } catch (e) {
+                err = e;
+            }
+            expect(err.message).to.eq(`Property 222 doesn't exist.`); // NOTE: no double-quotes for numbers
+            expect(err.chain).to.eql(['first', 222]);
+            expect(err.propName).to.eq(222);
+            expect(err.scope).to.eql({first: []});
+        });
+    });
+
 });

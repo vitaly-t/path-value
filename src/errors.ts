@@ -32,11 +32,11 @@ export class PathError extends Error {
 export class PathExistError extends Error {
 
     readonly chain: (string | number)[];
-    readonly propName: string;
+    readonly propName: string | number;
     readonly options?: IPathOptions;
     readonly scope: any;
 
-    constructor(msg: string, res: IPathResult, propName: string) {
+    constructor(msg: string, res: IPathResult, propName: string | number) {
         super(msg);
         this.chain = res.chain;
         this.propName = propName;
