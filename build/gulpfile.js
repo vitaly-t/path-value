@@ -12,7 +12,7 @@ const SOURCE_FILE = 'path-value.js';
 const DEST_FILE = 'path-value.min.js';
 const OUT_DIR = '../dist/web';
 
-const version = require('../package.json').version;
+const {version} = require('../package.json');
 
 const copyright = `/**
  * path-value v${version}
