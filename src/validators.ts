@@ -1,5 +1,5 @@
 import {IPathResult, PathErrorCode} from './types';
-import {PathError} from './error';
+import {PathError, PathExistError} from './errors';
 
 /**
  * Validates `errorCode` within IPathResult to throw a detailed error when it is set.
@@ -36,6 +36,6 @@ export function validateErrorCode(res: IPathResult): void {
 export function validateExists(res: IPathResult): void {
     if (!res.exists) {
         const lastName = JSON.stringify(res.chain[res.chain.length - 1]);
-        throw new PathError(`Property ${lastName} doesn't exist.`, res);
+        throw new PathExistError(`Property ${lastName} doesn't exist.`, res, lastName);
     }
 }
