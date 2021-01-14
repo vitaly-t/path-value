@@ -2,7 +2,7 @@ import {IPathResult, PathErrorCode} from './types';
 import {PathError, PathExistError} from './errors';
 
 /**
- * Validates `errorCode` within IPathResult to throw a detailed error when it is set.
+ * Validates `errorCode` within `IPathResult`, to throw `PathError` when it is set.
  *
  * @param res
  * Result to validate.
@@ -28,7 +28,7 @@ export function validateErrorCode(res: IPathResult): void {
 }
 
 /**
- * Validates `exists` within IPathResult to throw a detailed error when it is `false`.
+ * Validates `exists` within `IPathResult`, to throw `PathExistError` when it is `false`.
  *
  * @param res
  * Result to validate.
