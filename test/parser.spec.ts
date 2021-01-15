@@ -1,5 +1,5 @@
 import {expect} from './header';
-import {resolvePath as resolve, PathErrorCode, PathInput, normalizePath} from '../src';
+import {resolvePath as resolve, PathErrorCode, PathInput, tokenizePath} from '../src';
 
 describe('for an empty string', () => {
     it('must fail correctly', () => {
@@ -343,49 +343,46 @@ describe('for array indexes', () => {
     });
 });
 
-describe('normalizePath', () => {
+describe('tokenizePath', () => {
     it('must handle an empty string', () => {
-        expect(normalizePath('')).to.eql([]);
+        expect(tokenizePath('')).to.eql([]);
     });
     it('must handle short syntax', () => {
-        expect(normalizePath('a')).to.eql(['a']); // one small letter
-        expect(normalizePath('Z')).to.eql(['Z']); // one capital letter
-        expect(normalizePath('_')).to.eql(['_']); // underscore
-        expect(normalizePath('$')).to.eql(['$']); // dollar
-        expect(normalizePath('0')).to.eql(['0']); // zero
+        expect(tokenizePath('a')).to.eql(['a']); // one small letter
+        expect(tokenizePath('Z')).to.eql(['Z']); // one capital letter
+        expect(tokenizePath('_')).to.eql(['_']); // underscore
+        expect(tokenizePath('$')).to.eql(['$']); // dollar
+        expect(tokenizePath('0')).to.eql(['0']); // zero
     });
     it('must handle a simple path', () => {
-        expect(normalizePath('a.b.c')).to.eql(['a', 'b', 'c']);
-        expect(normalizePath('abc.1._.$')).to.eql(['abc', '1', '_', '$']);
+        expect(tokenizePath('a.b.c')).to.eql(['a', 'b', 'c']);
+        expect(tokenizePath('abc.1._.$')).to.eql(['abc', '1', '_', '$']);
     });
     it('must handle simple indexes', () => {
-        expect(normalizePath('[0]')).to.eql(['0']);
-        expect(normalizePath('[0][1][2]')).to.eql(['0', '1', '2']);
-        expect(normalizePath('["a"]')).to.eql(['a']);
-        expect(normalizePath('["abc"]')).to.eql(['abc']);
-        expect(normalizePath('[\'a\']')).to.eql(['a']);
-        expect(normalizePath('[\'abc\']')).to.eql(['abc']);
+        expect(tokenizePath('[0]')).to.eql(['0']);
+        expect(tokenizePath('[0][1][2]')).to.eql(['0', '1', '2']);
+        expect(tokenizePath('["a"]')).to.eql(['a']);
+        expect(tokenizePath('["abc"]')).to.eql(['abc']);
+        expect(tokenizePath('[\'a\']')).to.eql(['a']);
+        expect(tokenizePath('[\'abc\']')).to.eql(['abc']);
     });
     it('must handle complex indexes', () => {
-        expect(normalizePath('["a.b"]')).to.eql(['a.b']);
-        expect(normalizePath('1["a.b"].2')).to.eql(['1', 'a.b', '2']);
-        expect(normalizePath('["one two"].last')).to.eql(['one two', 'last']);
-        expect(normalizePath(`['1.two.$_'].last`)).to.eql(['1.two.$_', 'last']);
+        expect(tokenizePath('["a.b"]')).to.eql(['a.b']);
+        expect(tokenizePath('1["a.b"].2')).to.eql(['1', 'a.b', '2']);
+        expect(tokenizePath('["one two"].last')).to.eql(['one two', 'last']);
+        expect(tokenizePath(`['1.two.$_'].last`)).to.eql(['1.two.$_', 'last']);
     });
-
     it('must skip extra spaces correctly', () => {
-        expect(normalizePath('[ "a.b" ]')).to.eql(['a.b']);
-        expect(normalizePath('[ " a . b " ]')).to.eql([' a . b ']);
-        expect(normalizePath('[ 0 ]')).to.eql(['0']);
-        expect(normalizePath('[ 123 ]')).to.eql(['123']);
+        expect(tokenizePath('[ "a.b" ]')).to.eql(['a.b']);
+        expect(tokenizePath('[ " a . b " ]')).to.eql([' a . b ']);
+        expect(tokenizePath('[ 0 ]')).to.eql(['0']);
+        expect(tokenizePath('[ 123 ]')).to.eql(['123']);
     });
-
     it('must handle index with quotes', () => {
-        expect(normalizePath(`["a'b"]`)).to.eql([`a'b`]);
-        expect(normalizePath(`['a"b']`)).to.eql([`a"b`]);
+        expect(tokenizePath(`["a'b"]`)).to.eql([`a'b`]);
+        expect(tokenizePath(`['a"b']`)).to.eql([`a"b`]);
     });
-
     it('must handle any complex scenario', () => {
-        expect(normalizePath(`$[ "a'b" ].6[ 0 ]`)).to.eql(['$', `a'b`, '6', '0']);
+        expect(tokenizePath(`$[ "a'b" ].6[ 0 ]`)).to.eql(['$', `a'b`, '6', '0']);
     });
 });
