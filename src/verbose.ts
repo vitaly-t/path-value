@@ -61,6 +61,7 @@ export function verboseParse(str: string) {
  */
 export function flattenPath(path: string): (string | number)[] {
     // TODO: It does not like quotes inside quotes!
+    //  see: https://stackoverflow.com/questions/171480/regex-grabbing-values-between-quotation-marks
     const res = [], reg = /\[\s*(\d+)|["']([^"']+)["']\s*]|[a-z_$0-9]+/gi;
     let a;
     while (a = reg.exec(path)) {
@@ -69,7 +70,7 @@ export function flattenPath(path: string): (string | number)[] {
     return res;
 }
 
-const a = flattenPath(`[0][ ' one1.two$_' ].free[  " first123 "  ]`); //=> [ '123', 'one two' ]
+const a = verboseParse(`[0][' one1.\'two$_'].free[  " first123 "  ]`); //=> [ '123', 'one two' ]
 
 // tslint:disable-next-line:no-console
 console.log(a);
