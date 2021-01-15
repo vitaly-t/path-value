@@ -62,3 +62,20 @@ export function resolvePath(this: any, target: any, path: PathInput, options?: I
     }
     return {chain, scope, options, idx: i - 1, errorCode: PathErrorCode.stopped};
 }
+
+/**
+ * Converts a full-syntax JavaScript string into an array of names/indexes,
+ * which then can be passed into `resolvePath`.
+ *
+ * The function does not validate the string, it assumes it to be valid JavaScript.
+ *
+ * @param path
+ */
+export function normalizePath(path: string): (string | number)[] {
+    const res = [], reg = /\[\s*(\d+)(?=\s*])|\[\s*(["'])((?:\\.|(?!\2).)*)\2\s*]|[\w$]+/g;
+    let a;
+    while (a = reg.exec(path)) {
+        res.push(a[1] ? parseInt(a[1]) : a[3] || a[0]);
+    }
+    return res;
+}
