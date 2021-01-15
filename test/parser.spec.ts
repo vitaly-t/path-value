@@ -356,11 +356,11 @@ describe('normalizePath', () => {
     });
     it('must handle a simple path', () => {
         expect(normalizePath('a.b.c')).to.eql(['a', 'b', 'c']);
-        expect(normalizePath('abc.1._.$')).to.eql(['abc', '1', '_', '$']); // TODO: maybe can parseInt numbers here too?
+        expect(normalizePath('abc.1._.$')).to.eql(['abc', '1', '_', '$']);
     });
     it('must handle simple indexes', () => {
-        expect(normalizePath('[0]')).to.eql([0]);
-        expect(normalizePath('[0][1][2]')).to.eql([0, 1, 2]);
+        expect(normalizePath('[0]')).to.eql(['0']);
+        expect(normalizePath('[0][1][2]')).to.eql(['0', '1', '2']);
         expect(normalizePath('["a"]')).to.eql(['a']);
         expect(normalizePath('["abc"]')).to.eql(['abc']);
         expect(normalizePath('[\'a\']')).to.eql(['a']);
@@ -376,12 +376,16 @@ describe('normalizePath', () => {
     it('must skip extra spaces correctly', () => {
         expect(normalizePath('[ "a.b" ]')).to.eql(['a.b']);
         expect(normalizePath('[ " a . b " ]')).to.eql([' a . b ']);
-        expect(normalizePath('[ 0 ]')).to.eql([0]);
-        expect(normalizePath('[ 123 ]')).to.eql([123]);
+        expect(normalizePath('[ 0 ]')).to.eql(['0']);
+        expect(normalizePath('[ 123 ]')).to.eql(['123']);
     });
 
     it('must handle index with quotes', () => {
         expect(normalizePath(`["a'b"]`)).to.eql([`a'b`]);
         expect(normalizePath(`['a"b']`)).to.eql([`a"b`]);
+    });
+
+    it('must handle any complex scenario', () => {
+        expect(normalizePath(`$[ "a'b" ].6[ 0 ]`)).to.eql(['$', `a'b`, '6', '0']);
     });
 });
