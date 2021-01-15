@@ -57,12 +57,12 @@ export function verboseParse(str: string) {
  * Doesn't check syntax for validity, but if it is valid,
  * then the conversion is 100% accurate.
  *
- * @param str
+ * @param path
  */
-export function regexParse(str: string): (string | number)[] {
+export function flattenPath(path: string): (string | number)[] {
     const res = [], reg = /\[\s*(\d+)|["|']([\w\s]+)["|']\s*]|[a-z_$0-9]+/gi;
     let a;
-    while (a = reg.exec(str)) {
+    while (a = reg.exec(path)) {
         res.push(a[1] ? parseInt(a[1]) : a[3] || a[2] || a[0]);
     }
     return res;
