@@ -52,3 +52,18 @@ export function verboseParse(str: string) {
     }
     return parts;
 }
+
+/**
+ * Doesn't check syntax for validity, but if it is valid,
+ * then the conversion is 100% accurate.
+ *
+ * @param str
+ */
+export function regexParse(str: string): (string | number)[] {
+    const res = [], reg = /\[\s*(\d+)|["|']([\w\s]+)["|']\s*]|[a-z_$0-9]+/gi;
+    let a;
+    while (a = reg.exec(str)) {
+        res.push(a[1] ? parseInt(a[1]) : a[3] || a[2] || a[0]);
+    }
+    return res;
+}
