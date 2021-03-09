@@ -30,7 +30,7 @@ $ npm i path-value
 
 ## Features
 
-#### High Performance + Full ES5 Syntax
+#### High Performance + Full ES5 Syntax:
 
 This library offers the best possible performance, by separating path tokenization from path resolution,
 which makes it possible to create highly optimized value retrieval, by caching pre-tokenized path strings.
