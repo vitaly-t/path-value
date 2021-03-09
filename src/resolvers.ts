@@ -1,4 +1,4 @@
-import {resolvePath} from './parser';
+import {resolvePath} from './parsers';
 import {validateErrorCode, validateExists} from './validators';
 import {IPathOptions, PathInput} from './types';
 
@@ -23,9 +23,6 @@ export function resolveValue(this: any, target: any, path: PathInput, options?: 
 
 /**
  * Extends validation for missing last property, to throw a detailed error.
- *
- * This is primarily an example of how you can implement your own validation,
- * and not part of the official API.
  *
  * @param target
  * Default resolution scope.

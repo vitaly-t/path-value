@@ -30,7 +30,7 @@ $ npm i path-value
 
 ## Features
 
-#### Maximum Performance + Full ES5 Syntax
+#### High Performance + Full ES5 Syntax
 
 This library offers the best possible performance, by separating path tokenization from path resolution,
 which makes it possible to create highly optimized value retrieval, by caching pre-tokenized path strings.
@@ -51,7 +51,7 @@ const path = tokenizePath(`first[2].second["text index"]`); // tokenizing verbos
 const value = resolveValue(target, path); //=> 123
 ```
 
-You do not need to tokenize the path, and use it directly, if you want to support a simple-syntax path only,
+You do not need to tokenize the path, and can use it directly, if you want to support a simple-syntax path only,
 such as `first.123.last`, with array indexes used like properties.
 
 #### It supports local scope, via `this` prefix, for alternative resolution:
