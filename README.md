@@ -113,7 +113,7 @@ See also:
 * [Examples](http://github.com/vitaly-t/path-value/wiki/Examples) - special-case examples
 * [Browsers](http://github.com/vitaly-t/path-value/wiki/Browsers) - in-browser usage
 
-[resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/parser.ts#L17
+[resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/parsers.ts#L17
 
 [IPathResult]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L74
 
