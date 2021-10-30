@@ -54,8 +54,8 @@ describe('validateErrorCode', () => {
                     validateErrorCode(resolve({first: 123}, 'first.this'));
                 }).to.throw(errMsg);
                 expect(() => {
-                    validateErrorCode(resolve({first: 123}, 'this.this'));
-                }).to.throw(errMsg); // TODO: TypeScript 4.3 -> 4.4 upgrade issue
+                    validateErrorCode(resolve.call({}, {first: 123}, 'this.this'));
+                }).to.throw(errMsg);
             });
         });
         describe('async value', () => {

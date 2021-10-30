@@ -64,7 +64,7 @@ describe('resolveIfExists', () => {
             it('must throw error', () => {
                 expect(() => {
                     resolveIfExists(null, 'this.first');
-                }).to.throw(err); // TODO: TypeScript 4.3 -> 4.4 upgrade issue
+                }).to.throw(`Cannot resolve "first" from null/undefined.`);
                 expect(() => {
                     resolveIfExists.call({}, null, 'this.first');
                 }).to.throw(err);
