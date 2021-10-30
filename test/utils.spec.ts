@@ -11,9 +11,9 @@ describe('isClass', () => {
         };
         const c4 = class A {
         };
-        expect(isClass(c1)).to.be.false; // name = "c1", starts with small letter
+        expect(isClass(c1)).to.be.true; // name = "c1", starts with small letter
         expect(isClass(C2)).to.be.true; // name = "C2", starts with capital
-        expect(isClass(c3)).to.be.false; // name = "a", starts with small letter
+        expect(isClass(c3)).to.be.true; // name = "a", starts with small letter
         expect(isClass(c4)).to.be.true; // name = "A", starts with capital
     });
     it('must detect ES5 classes', () => {

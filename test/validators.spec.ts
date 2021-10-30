@@ -36,7 +36,7 @@ describe('validateErrorCode', () => {
                 try {
                     validateErrorCode(resolve(null, ''));
                 } catch (e) {
-                    err = e;
+                    err = e as any;
                 }
                 expect(err).to.not.be.undefined;
                 expect(err?.name).to.eq('Error');
@@ -137,7 +137,7 @@ describe('validateExists', () => {
             try {
                 validateExists(res);
             } catch (e) {
-                err = e;
+                err = e as any;
             }
             expect(err.message).to.eq(`Property "first" doesn't exist.`);
             expect(err.chain).to.eql(['first']);
@@ -157,7 +157,7 @@ describe('validateExists', () => {
             try {
                 validateExists(res);
             } catch (e) {
-                err = e;
+                err = e as any;
             }
             expect(err.message).to.eq(`Property 222 doesn't exist.`); // NOTE: no double-quotes for numbers
             expect(err.chain).to.eql(['first', 222]);
