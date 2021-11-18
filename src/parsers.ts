@@ -16,7 +16,7 @@ import {isClass} from './utils';
  */
 export function resolvePath(this: any, target: any, path: PathInput, options?: IPathOptions): IPathResult {
     const chain = typeof path === 'string' ? path.indexOf('.') === -1 ? [path] : path.split('.') : path;
-    const len = chain.length, ignoreFunctions = options && options.ignoreFunctions;
+    const len = chain.length, ignoreFunctions = options && options.ignoreFunctions, ownProperties = options && options.ownProperties;
     let value, isThis, i = 0, exists = true, scope = target;
     for (i; i < len; i++) {
         const name = chain[i];
@@ -37,7 +37,8 @@ export function resolvePath(this: any, target: any, path: PathInput, options?: I
             }
             break;
         }
-        value = isThis ? target : target[name];
+        let isOwnProperty = true;
+        value = isThis ? target : !ownProperties || (isOwnProperty = target?.hasOwnProperty(name)) ? target[name] : undefined;
         while (!ignoreFunctions && typeof value === 'function' && !isClass(value)) {
             value = value.call(target);
         }
@@ -45,7 +46,7 @@ export function resolvePath(this: any, target: any, path: PathInput, options?: I
             i++;
             if (value === undefined && i === len) {
                 const obj = typeof target === 'object' ? target : target.constructor.prototype;
-                exists = name in obj;
+                exists = !ownProperties ? name in obj : isOwnProperty;
             }
             break;
         }
