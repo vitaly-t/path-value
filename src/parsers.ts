@@ -16,7 +16,8 @@ import {isClass} from './utils';
  */
 export function resolvePath(this: any, target: any, path: PathInput, options?: IPathOptions): IPathResult {
     const chain = typeof path === 'string' ? path.indexOf('.') === -1 ? [path] : path.split('.') : path;
-    const len = chain.length, ignoreFunctions = options && options.ignoreFunctions, ownProperties = options && options.ownProperties;
+    const len = chain.length, ignoreFunctions = options && options.ignoreFunctions,
+        ownProperties = options && options.ownProperties;
     let value, isThis, i = 0, exists = true, scope = target;
     for (i; i < len; i++) {
         const name = chain[i];
