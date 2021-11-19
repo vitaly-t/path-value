@@ -26,6 +26,12 @@ export interface IPathOptions {
      *  - Invoking functions by the parser may be considered unsafe in certain context.
      */
     ignoreFunctions?: boolean;
+
+    /**
+     * By default, the parser will access inherited properties.
+     * This option overrides the default behaviour to disallow accessing inherited properties.
+     */
+    ownProperties?: boolean;
 }
 
 /**

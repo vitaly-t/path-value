@@ -317,6 +317,34 @@ describe('with options', () => {
             });
         });
     });
+
+    describe('when ownProperties is set', () => {
+        const tst = {value: 123};
+        Object.setPrototypeOf(tst, {inherited: 321});
+        const target = {tst};
+
+        it('must not resolve inherited properties', () => {
+            expect(resolve(target, 'tst.inherited', {ownProperties: true})).to.eql({
+                chain: ['tst', 'inherited'],
+                scope: target,
+                options: {ownProperties: true},
+                idx: 1,
+                exists: false,
+                value: undefined
+            });
+        });
+
+        it('must resolve for own properties', () => {
+            expect(resolve(target, 'tst.value', {ownProperties: true})).to.eql({
+                chain: ['tst', 'value'],
+                scope: target,
+                options: {ownProperties: true},
+                idx: 1,
+                exists: true,
+                value: 123
+            });
+        });
+    });
 });
 
 describe('for array indexes', () => {
