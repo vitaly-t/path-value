@@ -1,6 +1,6 @@
 {
   "name": "path-value",
-  "version": "0.9.3",
+  "version": "0.9.4",
   "description": "Property path-to-value resolver, in TypeScript",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
