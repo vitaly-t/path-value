@@ -63,7 +63,7 @@ resolveValue.call(scope, obj, 'this.value'); //=> 2 (local scope is used)
 resolveValue.call(obj, obj, 'this.value'); //=> 1 (local scope = default scope)
 ```
 
-#### Lower-level [resolvePath] returns an [IPathResult] descriptor:
+#### Lower-level [resolvePath] returns [IPathResult] descriptor:
 
 ```ts
 import {resolvePath, IPathResult} from 'path-value';
@@ -71,7 +71,7 @@ import {resolvePath, IPathResult} from 'path-value';
 const obj = {first: {value: 123}};
 
 const res: IPathResult = resolvePath(obj, 'first.value');
-//=> {chain: ['first', 'second'], scope: obj, idx: 1, exists: true, value: 123}
+//=> {chain: ['first', 'value'], scope: obj, idx: 1, exists: true, value: 123}
 ```
 
 Function [resolvePath] supports local scope the same as [resolveValue] does. It does not throw errors on its own, only
