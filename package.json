@@ -5,9 +5,9 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "tsc -p src && tsc -p src/tsconfig.web.json",
-    "lint": "tsc -p test && tslint ./src/**/*.ts ./test/**/*.ts",
-    "test": "nyc mocha -r ts-node/register test/**/*.spec.ts"
+    "build": "tsc -p src && tsc -p src/tsconfig.web.json && tsc -p test",
+    "lint": "tslint ./src/*.ts ./test/*.ts",
+    "test": "npm run lint && npm run build && nyc mocha -r ts-node/register test/*.spec.ts"
   },
   "files": [
     "dist"
