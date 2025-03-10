@@ -2,9 +2,9 @@ name: ci
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
   pull_request:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   test:
@@ -22,13 +22,8 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Install Dependencies
       - run: npm install
-
-      - name: Linting
       - run: npm run lint
-
-      - name: Testing
       - run: npm test
         # Workaround for No TTY issue
         shell: 'script -qec "bash {0}"'
