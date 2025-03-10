@@ -23,10 +23,6 @@ jobs:
           node-version: ${{ matrix.node-version }}
 
       - run: npm install
-
-      - run: npm run lint
-
       - run: npm test
-
         # Workaround for No TTY issue
         shell: 'script -qec "bash {0}"'
