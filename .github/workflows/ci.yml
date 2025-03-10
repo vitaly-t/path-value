@@ -1,0 +1,34 @@
+name: ci
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version: [14.x, 16.x, 18.x, 20.x, 22.x]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install Dependancies
+      - run: npm install
+
+      - name: Linting
+      - run: npm run lint
+
+      -name: Testing
+      - run: npm test
+        # Workaround for No TTY issue
+        shell: 'script -qec "bash {0}"'

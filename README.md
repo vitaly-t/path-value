@@ -1,6 +1,9 @@
 path-value
 ----------
 
+[![Build Status](https://github.com/vitaly-t/path-value/workflows/ci/badge.svg?branch=master)](https://github.com/vitaly-t/path-value/actions?query=workflow%3Aci+branch%3Amain)
+[![Node Version](https://img.shields.io/badge/nodejs-14%20--%2022-green.svg?logo=node.js&style=flat)](https://nodejs.org)
+
 Property path-to-value resolver, in TypeScript.
 
 ```ts
