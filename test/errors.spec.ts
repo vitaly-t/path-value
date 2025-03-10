@@ -1,4 +1,3 @@
-import {expect} from './header';
 import {IPathResult, PathError, PathExistError} from '../src';
 
 describe('error', () => {
@@ -16,24 +15,24 @@ describe('error', () => {
     describe('PathError', () => {
         const err = new PathError(errMsg, res);
         it('must correctly set all details', () => {
-            expect(err.message).to.eq(errMsg);
-            expect(err.chain).to.eql(['this', 'value']);
-            expect(err.code).to.eq(5);
-            expect(err.codeName).to.eq('PathErrorCode.stopped');
-            expect(err.scope).to.eq(123);
-            expect(err.options).to.eql({ignoreFunctions: true});
-            expect(err.idx).to.eq(1);
+            expect(err.message).toEqual(errMsg);
+            expect(err.chain).toEqual(['this', 'value']);
+            expect(err.code).toEqual(5);
+            expect(err.codeName).toEqual('PathErrorCode.stopped');
+            expect(err.scope).toEqual(123);
+            expect(err.options).toEqual({ignoreFunctions: true});
+            expect(err.idx).toEqual(1);
         });
     });
 
     describe('PathExistError', () => {
         const err = new PathExistError(errMsg, res, 'value');
         it('must correctly set all details', () => {
-            expect(err.message).to.eq(errMsg);
-            expect(err.chain).to.eql(['this', 'value']);
-            expect(err.propName).to.eq('value');
-            expect(err.options).to.eql({ignoreFunctions: true});
-            expect(err.scope).to.eq(123);
+            expect(err.message).toEqual(errMsg);
+            expect(err.chain).toEqual(['this', 'value']);
+            expect(err.propName).toEqual('value');
+            expect(err.options).toEqual({ignoreFunctions: true});
+            expect(err.scope).toEqual(123);
         });
     });
 });

@@ -1,4 +1,3 @@
-import {expect} from './header';
 import {isClass} from '../src/utils';
 
 describe('isClass', () => {
@@ -11,10 +10,10 @@ describe('isClass', () => {
         };
         const c4 = class A {
         };
-        expect(isClass(c1)).to.be.true; // name = "c1", starts with small letter
-        expect(isClass(C2)).to.be.true; // name = "C2", starts with capital
-        expect(isClass(c3)).to.be.true; // name = "a", starts with small letter
-        expect(isClass(c4)).to.be.true; // name = "A", starts with capital
+        expect(isClass(c1)).toBeTruthy(); // name = "c1", starts with small letter
+        expect(isClass(C2)).toBeTruthy(); // name = "C2", starts with capital
+        expect(isClass(c3)).toBeTruthy(); // name = "a", starts with small letter
+        expect(isClass(c4)).toBeTruthy(); // name = "A", starts with capital
     });
     it('must detect ES5 classes', () => {
         const c1 = function () {
@@ -25,16 +24,16 @@ describe('isClass', () => {
         };
         const c4 = function A() {
         };
-        expect(isClass(c1)).to.be.false; // name = "c1", starts with small letter
-        expect(isClass(C2)).to.be.false; // name = ""
-        expect(isClass(c3)).to.be.false; // name = "a", starts with small letter
-        expect(isClass(c4)).to.be.true; // name = "A", starts with capital
+        expect(isClass(c1)).toBeFalsy(); // name = "c1", starts with small letter
+        expect(isClass(C2)).toBeFalsy(); // name = ""
+        expect(isClass(c3)).toBeFalsy(); // name = "a", starts with small letter
+        expect(isClass(c4)).toBeTruthy(); // name = "A", starts with capital
     });
     it('must detect standard types', () => {
-        expect(isClass(Date)).to.be.true;
-        expect(isClass(String)).to.be.true;
-        expect(isClass(Boolean)).to.be.true;
-        expect(isClass(Number)).to.be.true;
-        expect(isClass(Function)).to.be.true;
+        expect(isClass(Date)).toBeTruthy();
+        expect(isClass(String)).toBeTruthy();
+        expect(isClass(Boolean)).toBeTruthy();
+        expect(isClass(Number)).toBeTruthy();
+        expect(isClass(Function)).toBeTruthy();
     });
 });

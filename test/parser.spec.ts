@@ -1,10 +1,9 @@
-import {expect} from './header';
 import {resolvePath as resolve, PathErrorCode, PathInput, tokenizePath} from '../src';
 
 describe('for an empty string', () => {
     it('must fail correctly', () => {
         const target = {};
-        expect(resolve(target, '')).to.eql({
+        expect(resolve(target, '')).toEqual({
             chain: [''],
             scope: target,
             options: undefined,
@@ -17,7 +16,7 @@ describe('for an empty string', () => {
 describe('for an empty array', () => {
     it('must report correctly', () => {
         // this is to ensure that an advanced result validator can handle such case correctly:
-        expect(resolve(null, [])).to.eql({
+        expect(resolve(null, [])).toEqual({
             chain: [],
             scope: null,
             options: undefined,
@@ -31,7 +30,7 @@ describe('for an empty array', () => {
 describe('one property', () => {
     describe('this', () => {
         it('must resolve any value', () => {
-            expect(resolve.call(undefined, null, 'this')).to.eql({
+            expect(resolve.call(undefined, null, 'this')).toEqual({
                 chain: ['this'],
                 scope: undefined,
                 options: undefined,
@@ -39,7 +38,7 @@ describe('one property', () => {
                 exists: true,
                 value: undefined
             });
-            expect(resolve.call(null, null, 'this')).to.eql({
+            expect(resolve.call(null, null, 'this')).toEqual({
                 chain: ['this'],
                 scope: null,
                 options: undefined,
@@ -47,7 +46,7 @@ describe('one property', () => {
                 exists: true,
                 value: null
             });
-            expect(resolve.call(123, null, 'this')).to.eql({
+            expect(resolve.call(123, null, 'this')).toEqual({
                 chain: ['this'],
                 scope: 123,
                 options: undefined,
@@ -60,7 +59,7 @@ describe('one property', () => {
     describe('for primitive types', () => {
         it('must call functions with context', () => {
             const scope1 = 123;
-            expect(resolve(scope1, 'toExponential')).to.eql({
+            expect(resolve(scope1, 'toExponential')).toEqual({
                 chain: ['toExponential'],
                 scope: scope1,
                 options: undefined,
@@ -69,7 +68,7 @@ describe('one property', () => {
                 value: '1.23e+2'
             });
             const scope2 = 'test';
-            expect(resolve(scope2, 'length')).to.eql({
+            expect(resolve(scope2, 'length')).toEqual({
                 chain: ['length'],
                 scope: scope2,
                 options: undefined,
@@ -82,7 +81,7 @@ describe('one property', () => {
     describe('for missing object properties', () => {
         it('must resolve with undefined', () => {
             const scope = {};
-            expect(resolve(scope, 'one')).to.eql({
+            expect(resolve(scope, 'one')).toEqual({
                 chain: ['one'],
                 scope,
                 options: undefined,
@@ -95,7 +94,7 @@ describe('one property', () => {
     describe('for missing primitive properties', () => {
         it('must resolve with undefined', () => {
             const scope = 123;
-            expect(resolve(scope, 'one')).to.eql({
+            expect(resolve(scope, 'one')).toEqual({
                 chain: ['one'],
                 scope,
                 options: undefined,
@@ -108,7 +107,7 @@ describe('one property', () => {
     describe('for functions', () => {
         it('must invoke correctly', () => {
             const obj1 = {one: () => 123};
-            expect(resolve(obj1, 'one')).to.eql({
+            expect(resolve(obj1, 'one')).toEqual({
                 chain: ['one'],
                 scope: obj1,
                 options: undefined,
@@ -121,7 +120,7 @@ describe('one property', () => {
                     return this.one;
                 }
             };
-            expect(resolve(obj2, 'getValue')).to.eql({
+            expect(resolve(obj2, 'getValue')).toEqual({
                 chain: ['getValue'],
                 scope: obj2,
                 options: undefined,
@@ -137,7 +136,7 @@ describe('multiple properties', () => {
     describe('for valid simple names', () => {
         it('must resolve', () => {
             const obj1 = {one: {two: 12}};
-            expect(resolve(obj1, 'one.two')).to.eql({
+            expect(resolve(obj1, 'one.two')).toEqual({
                 chain: ['one', 'two'],
                 scope: obj1,
                 options: undefined,
@@ -146,7 +145,7 @@ describe('multiple properties', () => {
                 value: 12
             });
             const obj2 = {one: {two: {three: 123}}};
-            expect(resolve(obj2, 'one.two.three')).to.eql({
+            expect(resolve(obj2, 'one.two.three')).toEqual({
                 chain: ['one', 'two', 'three'],
                 scope: obj2,
                 options: undefined,
@@ -159,7 +158,7 @@ describe('multiple properties', () => {
     describe('for invalid simple names', () => {
         it('must resolve', () => {
             const obj1 = {};
-            expect(resolve(obj1, 'one.two')).to.eql({
+            expect(resolve(obj1, 'one.two')).toEqual({
                 chain: ['one', 'two'],
                 scope: obj1,
                 options: undefined,
@@ -167,7 +166,7 @@ describe('multiple properties', () => {
                 errorCode: PathErrorCode.stopped
             });
             const obj2 = {one: {}};
-            expect(resolve(obj2, 'one.two.three.four')).to.eql({
+            expect(resolve(obj2, 'one.two.three.four')).toEqual({
                 chain: ['one', 'two', 'three', 'four'],
                 scope: obj2,
                 options: undefined,
@@ -179,7 +178,7 @@ describe('multiple properties', () => {
     describe('for context names', () => {
         it('must resolve one property', () => {
             const obj1 = {one: 1};
-            expect(resolve.call(obj1, obj1, 'this.one')).to.eql({
+            expect(resolve.call(obj1, obj1, 'this.one')).toEqual({
                 chain: ['this', 'one'],
                 scope: obj1,
                 options: undefined,
@@ -187,7 +186,7 @@ describe('multiple properties', () => {
                 exists: true,
                 value: 1
             });
-            expect(resolve.call(obj1, null, 'this.one')).to.eql({
+            expect(resolve.call(obj1, null, 'this.one')).toEqual({
                 chain: ['this', 'one'],
                 scope: obj1,
                 options: undefined,
@@ -198,7 +197,7 @@ describe('multiple properties', () => {
         });
         it('must resolve any chain', () => {
             const obj1 = {one: {two: 12}};
-            expect(resolve.call(obj1, obj1, 'this.one.two')).to.eql({
+            expect(resolve.call(obj1, obj1, 'this.one.two')).toEqual({
                 chain: ['this', 'one', 'two'],
                 scope: obj1,
                 options: undefined,
@@ -211,7 +210,7 @@ describe('multiple properties', () => {
     describe('for this in the wrong place', () => {
         it('must be reported', () => {
             const obj = {one: 1};
-            expect(resolve(obj, 'one.this')).to.eql({
+            expect(resolve(obj, 'one.this')).toEqual({
                 chain: ['one', 'this'],
                 scope: obj,
                 options: undefined,
@@ -225,7 +224,7 @@ describe('multiple properties', () => {
 describe('for special function', () => {
     it('must fail for async', () => {
         const obj = {value: async () => ({one: 123})};
-        expect(resolve(obj, ['value', 'one'])).to.eql({
+        expect(resolve(obj, ['value', 'one'])).toEqual({
             chain: ['value', 'one'],
             scope: obj,
             options: undefined,
@@ -239,7 +238,7 @@ describe('for special function', () => {
                 return {one: 123};
             }
         };
-        expect(resolve(obj, ['value', 'one'])).to.eql({
+        expect(resolve(obj, ['value', 'one'])).toEqual({
             chain: ['value', 'one'],
             scope: obj,
             options: undefined,
@@ -265,7 +264,7 @@ describe('nested functions', () => {
                 return (this as any).value;
             }
         };
-        expect(resolve(obj, 'first')).to.eql({
+        expect(resolve(obj, 'first')).toEqual({
             chain: ['first'],
             scope: obj,
             options: undefined,
@@ -287,7 +286,7 @@ describe('complex', () => {
                 return this.value;
             }
         };
-        expect(resolve.call(obj, null, 'this.getThis.getValue')).to.eql({
+        expect(resolve.call(obj, null, 'this.getThis.getValue')).toEqual({
             chain: ['this', 'getThis', 'getValue'],
             scope: obj,
             options: undefined,
@@ -307,7 +306,7 @@ describe('with options', () => {
 
             tst.value = 123;
             const target = {tst};
-            expect(resolve(target, 'tst.value', {ignoreFunctions: true})).to.eql({
+            expect(resolve(target, 'tst.value', {ignoreFunctions: true})).toEqual({
                 chain: ['tst', 'value'],
                 scope: target,
                 options: {ignoreFunctions: true},
@@ -324,7 +323,7 @@ describe('with options', () => {
         const target = {tst};
 
         it('must not resolve inherited properties', () => {
-            expect(resolve(target, 'tst.inherited', {ownProperties: true})).to.eql({
+            expect(resolve(target, 'tst.inherited', {ownProperties: true})).toEqual({
                 chain: ['tst', 'inherited'],
                 scope: target,
                 options: {ownProperties: true},
@@ -335,7 +334,7 @@ describe('with options', () => {
         });
 
         it('must resolve for own properties', () => {
-            expect(resolve(target, 'tst.value', {ownProperties: true})).to.eql({
+            expect(resolve(target, 'tst.value', {ownProperties: true})).toEqual({
                 chain: ['tst', 'value'],
                 scope: target,
                 options: {ownProperties: true},
@@ -350,7 +349,7 @@ describe('with options', () => {
 describe('for array indexes', () => {
     it('must support zeros', () => {
         const t1 = [123];
-        expect(resolve(t1, [0])).to.eql({
+        expect(resolve(t1, [0])).toEqual({
             chain: [0],
             scope: t1,
             options: undefined,
@@ -360,7 +359,7 @@ describe('for array indexes', () => {
         });
         const input: PathInput = [1, 1, 0];
         const t2 = [1, [2, [3]]];
-        expect(resolve(t2, input)).to.eql({
+        expect(resolve(t2, input)).toEqual({
             chain: [1, 1, 0],
             scope: t2,
             options: undefined,
@@ -371,7 +370,7 @@ describe('for array indexes', () => {
     });
 	  it('must support negative indexes', () => {
 				const t1 = ['a', 'b', 'c', 'd'];
-				expect(resolve(t1, [-2])).to.eql({
+				expect(resolve(t1, [-2])).toEqual({
 						chain: [-2],
 						scope: t1,
 						options: undefined,
@@ -380,7 +379,7 @@ describe('for array indexes', () => {
 						value: 'c',
 				}); 
 				const t2 = ['a', ['b', ['c', 'd']]];
-				expect(resolve(t2, [-1, -1, -2])).to.eql({
+				expect(resolve(t2, [-1, -1, -2])).toEqual({
 						chain: [-1, -1, -2],
 						scope: t2,
 						options: undefined,
@@ -393,46 +392,46 @@ describe('for array indexes', () => {
 
 describe('tokenizePath', () => {
     it('must handle an empty string', () => {
-        expect(tokenizePath('')).to.eql([]);
+        expect(tokenizePath('')).toEqual([]);
     });
     it('must handle short syntax', () => {
-        expect(tokenizePath('a')).to.eql(['a']); // one small letter
-        expect(tokenizePath('Z')).to.eql(['Z']); // one capital letter
-        expect(tokenizePath('_')).to.eql(['_']); // underscore
-        expect(tokenizePath('$')).to.eql(['$']); // dollar
-        expect(tokenizePath('0')).to.eql(['0']); // zero
-        expect(tokenizePath('-1')).to.eql(['-1']); // negative one 
+        expect(tokenizePath('a')).toEqual(['a']); // one small letter
+        expect(tokenizePath('Z')).toEqual(['Z']); // one capital letter
+        expect(tokenizePath('_')).toEqual(['_']); // underscore
+        expect(tokenizePath('$')).toEqual(['$']); // dollar
+        expect(tokenizePath('0')).toEqual(['0']); // zero
+        expect(tokenizePath('-1')).toEqual(['-1']); // negative one 
     });
     it('must handle a simple path', () => {
-        expect(tokenizePath('a.b.c')).to.eql(['a', 'b', 'c']);
-        expect(tokenizePath('abc.1._.$')).to.eql(['abc', '1', '_', '$']);
+        expect(tokenizePath('a.b.c')).toEqual(['a', 'b', 'c']);
+        expect(tokenizePath('abc.1._.$')).toEqual(['abc', '1', '_', '$']);
     });
     it('must handle simple indexes', () => {
-        expect(tokenizePath('[0]')).to.eql(['0']);
-        expect(tokenizePath('[-1]')).to.eql(['-1']);
-        expect(tokenizePath('[0][1][2]')).to.eql(['0', '1', '2']);
-        expect(tokenizePath('["a"]')).to.eql(['a']);
-        expect(tokenizePath('["abc"]')).to.eql(['abc']);
-        expect(tokenizePath('[\'a\']')).to.eql(['a']);
-        expect(tokenizePath('[\'abc\']')).to.eql(['abc']);
+        expect(tokenizePath('[0]')).toEqual(['0']);
+        expect(tokenizePath('[-1]')).toEqual(['-1']);
+        expect(tokenizePath('[0][1][2]')).toEqual(['0', '1', '2']);
+        expect(tokenizePath('["a"]')).toEqual(['a']);
+        expect(tokenizePath('["abc"]')).toEqual(['abc']);
+        expect(tokenizePath('[\'a\']')).toEqual(['a']);
+        expect(tokenizePath('[\'abc\']')).toEqual(['abc']);
     });
     it('must handle complex indexes', () => {
-        expect(tokenizePath('["a.b"]')).to.eql(['a.b']);
-        expect(tokenizePath('1["a.b"].2')).to.eql(['1', 'a.b', '2']);
-        expect(tokenizePath('["one two"].last')).to.eql(['one two', 'last']);
-        expect(tokenizePath(`['1.two.$_'].last`)).to.eql(['1.two.$_', 'last']);
+        expect(tokenizePath('["a.b"]')).toEqual(['a.b']);
+        expect(tokenizePath('1["a.b"].2')).toEqual(['1', 'a.b', '2']);
+        expect(tokenizePath('["one two"].last')).toEqual(['one two', 'last']);
+        expect(tokenizePath(`['1.two.$_'].last`)).toEqual(['1.two.$_', 'last']);
     });
     it('must skip extra spaces correctly', () => {
-        expect(tokenizePath('[ "a.b" ]')).to.eql(['a.b']);
-        expect(tokenizePath('[ " a . b " ]')).to.eql([' a . b ']);
-        expect(tokenizePath('[ 0 ]')).to.eql(['0']);
-        expect(tokenizePath('[ 123 ]')).to.eql(['123']);
+        expect(tokenizePath('[ "a.b" ]')).toEqual(['a.b']);
+        expect(tokenizePath('[ " a . b " ]')).toEqual([' a . b ']);
+        expect(tokenizePath('[ 0 ]')).toEqual(['0']);
+        expect(tokenizePath('[ 123 ]')).toEqual(['123']);
     });
     it('must handle index with quotes', () => {
-        expect(tokenizePath(`["a'b"]`)).to.eql([`a'b`]);
-        expect(tokenizePath(`['a"b']`)).to.eql([`a"b`]);
+        expect(tokenizePath(`["a'b"]`)).toEqual([`a'b`]);
+        expect(tokenizePath(`['a"b']`)).toEqual([`a"b`]);
     });
     it('must handle any complex scenario', () => {
-        expect(tokenizePath(`$[ "a'b" ].6[ 0 ]`)).to.eql(['$', `a'b`, '6', '0']);
+        expect(tokenizePath(`$[ "a'b" ].6[ 0 ]`)).toEqual(['$', `a'b`, '6', '0']);
     });
 });
