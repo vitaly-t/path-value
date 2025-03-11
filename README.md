@@ -115,7 +115,7 @@ See also:
 
 [resolvePath]:https://github.com/vitaly-t/path-value/blob/main/src/parsers.ts#L17
 
-[IPathResult]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L74
+[IPathResult]:https://github.com/vitaly-t/path-value/blob/main/src/types.ts#L80
 
 [resolveValue]:https://github.com/vitaly-t/path-value/blob/main/src/resolvers.ts#L18
 
