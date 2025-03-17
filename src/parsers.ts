@@ -81,7 +81,7 @@ export function resolvePath(this: any, target: any, path: PathInput, options?: I
  * Valid JavaScript property path.
  */
 export function tokenizePath(path: string): string[] {
-    const res = [], reg = /\[\s*([-]*\d+)(?=\s*])|\[\s*(["'])((?:\\.|(?!\2).)*)\2\s*]|[-\w$]+/g;
+    const res = [], reg = /\[\s*(-*\d+)(?=\s*])|\[\s*(["'])((?:\\.|(?!\2).)*)\2\s*]|[-\w$]+/g;
     let a;
     while (a = reg.exec(path)) {
         res.push(a[1] || a[3] || a[0]);
