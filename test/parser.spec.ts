@@ -368,26 +368,32 @@ describe('for array indexes', () => {
             value: 3
         });
     });
-	  it('must support negative indexes', () => {
-				const t1 = ['a', 'b', 'c', 'd'];
-				expect(resolve(t1, [-2])).toEqual({
-						chain: [-2],
-						scope: t1,
-						options: undefined,
-						idx: 0,
-						exists: true,
-						value: 'c',
-				}); 
-				const t2 = ['a', ['b', ['c', 'd']]];
-				expect(resolve(t2, [-1, -1, -2])).toEqual({
-						chain: [-1, -1, -2],
-						scope: t2,
-						options: undefined,
-						idx: 2,
-						exists: true,
-						value: 'c',
-				});
-		});
+    it('must support negative indexes', () => {
+            const t1 = ['a', 'b', 'c', 'd'];
+            expect(resolve(t1, [-2])).toEqual({
+                    chain: [-2],
+                    scope: t1,
+                    options: undefined,
+                    idx: 0,
+                    exists: true,
+                    value: 'c',
+            }); 
+            const t2 = ['a', ['b', ['c', 'd']]];
+            expect(resolve(t2, [-1, -1, -2])).toEqual({
+                    chain: [-1, -1, -2],
+                    scope: t2,
+                    options: undefined,
+                    idx: 2,
+                    exists: true,
+                    value: 'c',
+            });
+    });
+    it("must not assume path is number on array input", () => {
+        expect(resolve(["test", {foo: []}], "zzz").exists).toBe(false);
+    });
+    it("must correctly handle out of bounds array index", () => {
+        expect(resolve([1,2,3], "-999").exists).toBe(false);
+    });
 });
 
 describe('tokenizePath', () => {
