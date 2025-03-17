@@ -39,7 +39,7 @@ export function resolvePath(this: any, target: any, path: PathInput, options?: I
             break;
         }
         let isOwnProperty = true;
-        if(Array.isArray(target)) {
+        if (Array.isArray(target) && Number.isInteger(Number(name))) {
             value = target.at(Number(name));
         } else {
             value = isThis ? target : !ownProperties || (isOwnProperty = target?.hasOwnProperty(name)) ? target[name] : undefined;
