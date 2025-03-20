@@ -388,10 +388,10 @@ describe('for array indexes', () => {
         });
     });
     it('must not assume path is number on array input', () => {
-        expect(resolve(['test', {foo: []}], 'zzz').exists).toBe(false);
+        expect(resolve(['test', {foo: []}], 'zzz').exists).toBeFalsy();
     });
     it('must correctly handle out of bounds array index', () => {
-        expect(resolve([1, 2, 3], '-999').exists).toBe(false);
+        expect(resolve([1, 2, 3], '-999').exists).toBeFalsy();
     });
 });
 
